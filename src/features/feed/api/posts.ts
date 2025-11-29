@@ -26,6 +26,12 @@ export interface Post {
     isEdited?: boolean;
     editedAt?: string;
     editCount?: number;
+    editedBy?: {
+        id: string;
+        name: string;
+        handle: string;
+        avatar: string;
+    };
 }
 
 export async function fetchPosts({ pageParam = 0, queryKey }: { pageParam?: number, queryKey: (string | undefined)[] }): Promise<{ posts: Post[], nextCursor: number | undefined }> {

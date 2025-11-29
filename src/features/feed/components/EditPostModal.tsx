@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import { type Post as PostType, editPost } from '../../feed/api/posts';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'sonner';
 
 interface EditPostModalProps {
     isOpen: boolean;
@@ -38,7 +39,11 @@ export const EditPostModal = ({ isOpen, onClose, post }: EditPostModalProps) => 
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['posts'] });
             queryClient.invalidateQueries({ queryKey: ['post-thread'] });
+            toast.success('Post updated successfully');
             onClose();
+        },
+        onError: () => {
+            toast.error('Failed to update post');
         }
     });
 

@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Outlet } from '@tanstack/react-router'
+import { Toaster } from 'sonner'
 import { useAuthStore } from './features/auth/stores/authStore'
 
 import './App.css'
@@ -18,14 +19,19 @@ function App() {
 
       if (user) {
         try {
-          await syncUser(user);
+          const data = await syncUser(user);
           console.log("User synced with backend");
+          // Merge role from backend with firebase user
+          setUser({ ...user, role: data.role } as any);
         } catch (error) {
           console.error("Failed to sync user:", error);
+          // Fallback to just firebase user if sync fails
+          setUser(user as any);
         }
+      } else {
+        setUser(null)
       }
 
-      setUser(user)
       setLoading(false)
     })
     return () => unsubscribe()
@@ -35,6 +41,7 @@ function App() {
     <>
 
       <Outlet />
+      <Toaster />
     </>
   )
 }

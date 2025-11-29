@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Heart, MessageCircle, Repeat, Share } from 'lucide-react';
+import { Heart, MessageCircle, Repeat, Share, MoreHorizontal, Trash2, Edit } from 'lucide-react';
 import { useNavigate, Link } from '@tanstack/react-router';
 import type { Post as PostType } from '../api/posts';
 import { RichText } from '../../../components/RichText';
@@ -7,11 +7,12 @@ import { usePostInteraction } from '../hooks/usePostInteraction';
 import { ReplyModal } from '../../composer/components/ReplyModal';
 import { formatRelativeTime } from '../../../utils/date';
 import { MediaEmbed } from './MediaEmbed';
-import { MoreHorizontal, Trash2, Edit } from 'lucide-react';
 import { useAuthStore } from '../../auth/stores/authStore';
 import { deletePost } from '../api/posts';
 import { EditPostModal } from './EditPostModal';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { ConfirmationModal } from '../../../components/ConfirmationModal';
+import { toast } from 'sonner';
 
 interface PostProps {
     post: PostType;
@@ -23,6 +24,7 @@ export const Post: React.FC<PostProps> = ({ post }) => {
     const [isReplyModalOpen, setIsReplyModalOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const { user } = useAuthStore();
     const queryClient = useQueryClient();
 
@@ -34,10 +36,19 @@ export const Post: React.FC<PostProps> = ({ post }) => {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['posts'] });
             queryClient.invalidateQueries({ queryKey: ['post-thread'] });
+            toast.success('Post deleted successfully');
+        },
+        onError: () => {
+            toast.error('Failed to delete post');
         }
     });
 
-    const handlePostClick = () => {
+    const handlePostClick = (e: React.MouseEvent) => {
+        // Prevent navigation if clicking on interactive elements
+        if ((e.target as HTMLElement).closest('button') || (e.target as HTMLElement).closest('a')) {
+            return;
+        }
+
         navigate({
             to: '/profile/$handle/post/$rkey',
             params: {
@@ -81,7 +92,11 @@ export const Post: React.FC<PostProps> = ({ post }) => {
                             <span className="text-gray-500 flex-shrink-0">
                                 {formatRelativeTime(post.timestamp)}
                             </span>
-                            {post.isEdited && <span className="text-gray-400 text-xs ml-1">(edited)</span>}
+                            {post.isEdited && (
+                                <span className="text-gray-400 text-xs ml-1">
+                                    (edited{post.editedBy && post.editedBy.id !== post.author.id ? ` by ${post.editedBy.name}` : ''})
+                                </span>
+                            )}
 
                             {(canDelete || canEdit) && (
                                 <div className="ml-auto relative">
@@ -99,7 +114,9 @@ export const Post: React.FC<PostProps> = ({ post }) => {
                                             {canEdit && (
                                                 <button
                                                     onClick={(e) => {
+                                                        e.preventDefault();
                                                         e.stopPropagation();
+                                                        console.log('Edit clicked');
                                                         setIsEditModalOpen(true);
                                                         setIsMenuOpen(false);
                                                     }}
@@ -111,10 +128,10 @@ export const Post: React.FC<PostProps> = ({ post }) => {
                                             {canDelete && (
                                                 <button
                                                     onClick={(e) => {
+                                                        e.preventDefault();
                                                         e.stopPropagation();
-                                                        if (confirm('Are you sure you want to delete this post?')) {
-                                                            deletePostMutation();
-                                                        }
+                                                        console.log('Delete clicked');
+                                                        setIsDeleteModalOpen(true);
                                                         setIsMenuOpen(false);
                                                     }}
                                                     className="flex items-center gap-2 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 text-left"
@@ -206,6 +223,15 @@ export const Post: React.FC<PostProps> = ({ post }) => {
                 isOpen={isEditModalOpen}
                 onClose={() => setIsEditModalOpen(false)}
                 post={post}
+            />
+            <ConfirmationModal
+                isOpen={isDeleteModalOpen}
+                onClose={() => setIsDeleteModalOpen(false)}
+                onConfirm={() => deletePostMutation()}
+                title="Delete Post?"
+                message="Are you sure you want to delete this post? This action cannot be undone."
+                confirmText="Delete"
+                isDestructive
             />
         </>
     );
