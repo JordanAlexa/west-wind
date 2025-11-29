@@ -1,0 +1,85 @@
+
+[1m[46m RUN [49m[22m [36mv4.0.14 [39m[90mC:/Users/Jordan/.gemini/antigravity/scratch/west-wind[39m
+
+[90mstdout[2m | src/components/Home.test.tsx[2m > [22m[2mHome UI[2m > [22m[2mopens composer modal when New Post is clicked
+[22m[39m[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"min-h-screen flex items-center justify-center bg-white"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"[39m
+      [36m/>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+
+ [31m❯[39m src/components/Home.test.tsx [2m([22m[2m2 tests[22m[2m | [22m[31m2 failed[39m[2m)[22m[32m 29[2mms[22m[39m
+[31m     [31m×[31m renders sidebar and feed[39m[32m 22[2mms[22m[39m
+[31m     [31m×[31m opens composer modal when New Post is clicked[39m[32m 5[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 2 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m src/components/Home.test.tsx[2m > [22mHome UI[2m > [22mrenders sidebar and feed
+[31m[1mTestingLibraryElementError[22m: Unable to find an element with the text: Home. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mclass[31m=[32m"min-h-screen flex items-center justify-center bg-white"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"[31m
+      [36m/>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m[39m
+[90m [2m❯[22m Object.getElementError node_modules/@testing-library/dom/dist/config.js:[2m37:19[22m[39m
+[90m [2m❯[22m node_modules/@testing-library/dom/dist/query-helpers.js:[2m76:38[22m[39m
+[90m [2m❯[22m node_modules/@testing-library/dom/dist/query-helpers.js:[2m52:17[22m[39m
+[90m [2m❯[22m node_modules/@testing-library/dom/dist/query-helpers.js:[2m95:19[22m[39m
+[36m [2m❯[22m src/components/Home.test.tsx:[2m59:23[22m[39m
+    [90m 57| [39m
+    [90m 58| [39m        [90m// Check for Sidebar items (Desktop)[39m
+    [90m 59| [39m        [34mexpect[39m(screen[33m.[39m[34mgetByText[39m([32m'Home'[39m))[33m.[39m[34mtoBeInTheDocument[39m()[33m;[39m
+    [90m   | [39m                      [31m^[39m
+    [90m 60| [39m        [34mexpect[39m(screen[33m.[39m[34mgetByText[39m([32m'Search'[39m))[33m.[39m[34mtoBeInTheDocument[39m()[33m;[39m
+    [90m 61| [39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m src/components/Home.test.tsx[2m > [22mHome UI[2m > [22mopens composer modal when New Post is clicked
+[31m[1mTestingLibraryElementError[22m: Unable to find a label with the text of: New Post
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mclass[31m=[32m"min-h-screen flex items-center justify-center bg-white"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"[31m
+      [36m/>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m[39m
+[90m [2m❯[22m Object.getElementError node_modules/@testing-library/dom/dist/config.js:[2m37:19[22m[39m
+[90m [2m❯[22m getAllByLabelText node_modules/@testing-library/dom/dist/queries/label-text.js:[2m111:38[22m[39m
+[90m [2m❯[22m node_modules/@testing-library/dom/dist/query-helpers.js:[2m109:15[22m[39m
+[36m [2m❯[22m src/components/Home.test.tsx:[2m76:35[22m[39m
+    [90m 74| [39m        [90m// We'll look for the button by its aria-label[39m
+    [90m 75| [39m        screen[33m.[39m[34mdebug[39m()[33m;[39m
+    [90m 76| [39m        [35mconst[39m newPostBtn [33m=[39m screen[33m.[39m[34mgetAllByLabelText[39m([32m'New Post'[39m)[[34m0[39m][33m;[39m
+    [90m   | [39m                                  [31m^[39m
+    [90m 77| [39m        fireEvent[33m.[39m[34mclick[39m(newPostBtn)[33m;[39m
+    [90m 78| [39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m2 failed[39m[22m[90m (2)[39m
+[2m   Start at [22m 22:27:27
+[2m   Duration [22m 1.35s[2m (transform 190ms, setup 83ms, import 414ms, tests 29ms, environment 472ms)[22m
+
