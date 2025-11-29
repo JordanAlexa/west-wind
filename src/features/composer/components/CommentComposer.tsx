@@ -16,7 +16,7 @@ interface CommentComposerProps {
 
 const MAX_CHARS = 300;
 
-export const CommentComposer = ({ parentId, onSuccess, onCancel }: CommentComposerProps) => {
+export const CommentComposer = ({ parentId, onSuccess }: CommentComposerProps) => {
     const { user } = useAuthStore();
     const [text, setText] = useState('');
     const [images, setImages] = useState<File[]>([]);

@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { Feed } from './Feed';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import * as ReactQuery from '@tanstack/react-query';
@@ -73,6 +73,10 @@ describe('Feed', () => {
                             name: 'Alice Johnson',
                             handle: 'alice',
                             avatar: 'https://example.com/avatar.png',
+                            banner: '',
+                            followersCount: 100,
+                            followsCount: 50,
+                            postsCount: 10,
                         },
                         timestamp: new Date().toISOString(),
                         likes: 0,

@@ -8,8 +8,8 @@ interface RichTextProps {
 export const RichText = ({ content, className = '' }: RichTextProps) => {
     if (!content) return null;
 
-    // Split by hashtags, keeping the delimiter
-    const parts = content.split(/(#[\w]+)/g);
+    // Split by hashtags and mentions, keeping the delimiters
+    const parts = content.split(/((?:#|@)[\w]+)/g);
 
     return (
         <p className={`whitespace-pre-wrap ${className}`}>
@@ -21,6 +21,19 @@ export const RichText = ({ content, className = '' }: RichTextProps) => {
                             key={index}
                             to="/hashtag/$tag"
                             params={{ tag: tag.toLowerCase() }}
+                            className="text-blue-500 hover:underline"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            {part}
+                        </Link>
+                    );
+                } else if (part.match(/^@[\w]+$/)) {
+                    const handle = part.substring(1); // Remove @
+                    return (
+                        <Link
+                            key={index}
+                            to="/profile/$handle"
+                            params={{ handle: handle }} // Assuming handle is username for now
                             className="text-blue-500 hover:underline"
                             onClick={(e) => e.stopPropagation()}
                         >

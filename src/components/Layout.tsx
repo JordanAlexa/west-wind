@@ -4,8 +4,7 @@ import { Link } from '@tanstack/react-router';
 import { SearchInput } from '../features/search/components/SearchInput';
 import { useQuery } from '@tanstack/react-query';
 import { getTrendingHashtags } from '../features/feed/api/hashtags';
-
-
+import { useUnreadCount } from '../features/notifications/hooks/useNotifications';
 
 interface LayoutProps {
     children: React.ReactNode;
@@ -14,14 +13,22 @@ interface LayoutProps {
 
 export const Layout = ({ children, onNewPost }: LayoutProps) => {
     const { user, signOut } = useAuthStore();
+    const { data: unreadCount } = useUnreadCount();
 
-    const NavItem = ({ icon: Icon, label, to, params, active = false }: { icon: any, label: string, to: string, params?: any, active?: boolean }) => (
+    const NavItem = ({ icon: Icon, label, to, params, active = false, badge }: { icon: any, label: string, to: string, params?: any, active?: boolean, badge?: number }) => (
         <Link
             to={to}
             params={params}
-            className={`flex items-center gap-4 p-3 w-full rounded-full hover:bg-gray-100 transition-colors ${active ? 'font-bold' : ''}`}
+            className={`flex items-center gap-4 p-3 w-full rounded-full hover:bg-gray-100 transition-colors ${active ? 'font-bold' : ''} relative`}
         >
-            <Icon className={`w-7 h-7 ${active ? 'stroke-[3px]' : 'stroke-[2px]'}`} />
+            <div className="relative">
+                <Icon className={`w-7 h-7 ${active ? 'stroke-[3px]' : 'stroke-[2px]'}`} />
+                {badge && badge > 0 ? (
+                    <div className="absolute -top-1 -right-1 bg-[#8B5CF6] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] flex justify-center items-center border-2 border-white">
+                        {badge > 99 ? '99+' : badge}
+                    </div>
+                ) : null}
+            </div>
             <span className="text-xl hidden xl:block">{label}</span>
         </Link>
     );
@@ -40,7 +47,12 @@ export const Layout = ({ children, onNewPost }: LayoutProps) => {
                     <nav className="flex-1 flex flex-col gap-2">
                         <NavItem icon={Home} label="Home" to="/" active />
                         {/* Search removed from left sidebar */}
-                        <NavItem icon={Bell} label="Notifications" to="/" />
+                        <NavItem
+                            icon={Bell}
+                            label="Notifications"
+                            to="/notifications"
+                            badge={unreadCount}
+                        />
                         <NavItem icon={Mail} label="Messages" to="/" />
                         <NavItem
                             icon={User}
@@ -96,7 +108,14 @@ export const Layout = ({ children, onNewPost }: LayoutProps) => {
                 <Link to="/search">
                     <Search className="w-7 h-7" />
                 </Link>
-                <Bell className="w-7 h-7" />
+                <Link to="/notifications" className="relative">
+                    <Bell className="w-7 h-7" />
+                    {unreadCount && unreadCount > 0 ? (
+                        <div className="absolute -top-1 -right-1 bg-[#8B5CF6] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] flex justify-center items-center border-2 border-white">
+                            {unreadCount > 99 ? '99+' : unreadCount}
+                        </div>
+                    ) : null}
+                </Link>
                 <Mail className="w-7 h-7" />
             </div>
 

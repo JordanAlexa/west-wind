@@ -51,6 +51,40 @@ const hashtagRoute = createRoute({
     component: HashtagFeed,
 });
 
+import { Notifications } from './pages/Notifications';
+import { redirect } from '@tanstack/react-router';
+
+// ... imports ...
+
+// Create notifications route
+const notificationsRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: '/notifications',
+    component: Notifications,
+})
+
+// Create simplified post route (redirects to full thread URL)
+const postRedirectRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: '/post/$id',
+    loader: async ({ params }) => {
+        // In a real app, we might fetch the post to get the author handle
+        // For now, let's just redirect to a generic URL or handle it in the component
+        // Since our PostThread URL requires handle, we have a mismatch.
+        // Let's update PostThread to optionally accept just ID or fetch handle.
+        // OR, better for now: redirect to a route that handles the lookup.
+        // But we don't have that.
+        // Let's just make a route that renders PostThread and let it handle the missing handle.
+        // Actually, PostThread expects $handle and $rkey (which is ID).
+        // We can just use "user" as handle placeholder if we don't know it, 
+        // as long as the backend only cares about ID.
+        throw redirect({
+            to: '/profile/$handle/post/$rkey',
+            params: { handle: 'user', rkey: params.id },
+        })
+    },
+})
+
 // Create the route tree
 const routeTree = rootRoute.addChildren([
     indexRoute,
@@ -59,6 +93,8 @@ const routeTree = rootRoute.addChildren([
     postThreadRoute,
     searchRoute,
     hashtagRoute,
+    notificationsRoute,
+    postRedirectRoute,
 ])
 
 // Create the router instance
