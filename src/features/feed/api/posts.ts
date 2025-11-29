@@ -23,6 +23,9 @@ export interface Post {
     parentId?: string;
     replyCount?: number;
     likedByViewer?: boolean;
+    isEdited?: boolean;
+    editedAt?: string;
+    editCount?: number;
 }
 
 export async function fetchPosts({ pageParam = 0, queryKey }: { pageParam?: number, queryKey: (string | undefined)[] }): Promise<{ posts: Post[], nextCursor: number | undefined }> {
@@ -104,4 +107,19 @@ export async function toggleLike(postId: string, isLiked: boolean) {
     });
 
     return response.data;
+}
+
+export async function deletePost(postId: string) {
+    const user = JSON.parse(localStorage.getItem('west-wind-user') || '{}');
+    await axios.delete(`${API_URL}/posts/${postId}`, {
+        data: { firebase_uid: user.uid }
+    });
+}
+
+export async function editPost(postId: string, content: string) {
+    const user = JSON.parse(localStorage.getItem('west-wind-user') || '{}');
+    await axios.put(`${API_URL}/posts/${postId}`, {
+        firebase_uid: user.uid,
+        content
+    });
 }

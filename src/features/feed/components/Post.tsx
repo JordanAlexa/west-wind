@@ -7,6 +7,11 @@ import { usePostInteraction } from '../hooks/usePostInteraction';
 import { ReplyModal } from '../../composer/components/ReplyModal';
 import { formatRelativeTime } from '../../../utils/date';
 import { MediaEmbed } from './MediaEmbed';
+import { MoreHorizontal, Trash2, Edit } from 'lucide-react';
+import { useAuthStore } from '../../auth/stores/authStore';
+import { deletePost } from '../api/posts';
+import { EditPostModal } from './EditPostModal';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface PostProps {
     post: PostType;
@@ -16,6 +21,21 @@ export const Post: React.FC<PostProps> = ({ post }) => {
     const navigate = useNavigate();
     const { like, repost, isLiking, isReposting } = usePostInteraction(post);
     const [isReplyModalOpen, setIsReplyModalOpen] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const { user } = useAuthStore();
+    const queryClient = useQueryClient();
+
+    const canDelete = user && (user.role === 'SUPER.ADMIN' || user.role === 'ADMIN' || user.uid === post.author.id);
+    const canEdit = user && user.uid === post.author.id;
+
+    const { mutate: deletePostMutation } = useMutation({
+        mutationFn: () => deletePost(post.id),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['posts'] });
+            queryClient.invalidateQueries({ queryKey: ['post-thread'] });
+        }
+    });
 
     const handlePostClick = () => {
         navigate({
@@ -61,6 +81,51 @@ export const Post: React.FC<PostProps> = ({ post }) => {
                             <span className="text-gray-500 flex-shrink-0">
                                 {formatRelativeTime(post.timestamp)}
                             </span>
+                            {post.isEdited && <span className="text-gray-400 text-xs ml-1">(edited)</span>}
+
+                            {(canDelete || canEdit) && (
+                                <div className="ml-auto relative">
+                                    <button
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            setIsMenuOpen(!isMenuOpen);
+                                        }}
+                                        className="p-1 hover:bg-gray-100 rounded-full text-gray-500"
+                                    >
+                                        <MoreHorizontal size={16} />
+                                    </button>
+                                    {isMenuOpen && (
+                                        <div className="absolute right-0 top-6 bg-white shadow-lg rounded-lg border border-gray-100 z-10 w-32 overflow-hidden">
+                                            {canEdit && (
+                                                <button
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        setIsEditModalOpen(true);
+                                                        setIsMenuOpen(false);
+                                                    }}
+                                                    className="flex items-center gap-2 w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 text-left"
+                                                >
+                                                    <Edit size={14} /> Edit
+                                                </button>
+                                            )}
+                                            {canDelete && (
+                                                <button
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        if (confirm('Are you sure you want to delete this post?')) {
+                                                            deletePostMutation();
+                                                        }
+                                                        setIsMenuOpen(false);
+                                                    }}
+                                                    className="flex items-center gap-2 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 text-left"
+                                                >
+                                                    <Trash2 size={14} /> Delete
+                                                </button>
+                                            )}
+                                        </div>
+                                    )}
+                                </div>
+                            )}
                         </div>
 
                         <div className="mb-3 text-[15px] leading-5 text-gray-900">
@@ -135,6 +200,11 @@ export const Post: React.FC<PostProps> = ({ post }) => {
             <ReplyModal
                 isOpen={isReplyModalOpen}
                 onClose={() => setIsReplyModalOpen(false)}
+                post={post}
+            />
+            <EditPostModal
+                isOpen={isEditModalOpen}
+                onClose={() => setIsEditModalOpen(false)}
                 post={post}
             />
         </>
