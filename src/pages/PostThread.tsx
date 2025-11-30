@@ -28,7 +28,7 @@ export const PostThread = () => {
         return (
             <Layout onNewPost={() => setIsComposerOpen(true)}>
                 <div className="flex justify-center p-8">
-                    <Loader2 className="animate-spin text-blue-500" />
+                    <Loader2 className="animate-spin text-primary" />
                 </div>
                 <ComposerModal
                     isOpen={isComposerOpen}
@@ -53,16 +53,16 @@ export const PostThread = () => {
     return (
         <>
             <Layout onNewPost={() => setIsComposerOpen(true)}>
-                <div className="w-full min-h-screen bg-white">
+                <div className="w-full min-h-screen bg-bg">
                     {/* Sticky Header */}
-                    <div className="sticky top-0 z-10 bg-white/80 backdrop-blur-md border-b border-gray-200 px-4 py-3 flex items-center gap-4">
+                    <div className="sticky top-0 z-10 bg-bg/80 backdrop-blur-md border-b border-border px-4 py-3 flex items-center gap-4">
                         <button
                             onClick={() => window.history.back()}
-                            className="p-2 -ml-2 hover:bg-gray-100 rounded-full transition-colors"
+                            className="p-2 -ml-2 hover:bg-surface-hover rounded-full transition-colors"
                         >
-                            <ArrowLeft className="w-5 h-5" />
+                            <ArrowLeft className="w-5 h-5 text-text" />
                         </button>
-                        <h1 className="font-bold text-xl">Post</h1>
+                        <h1 className="font-bold text-xl text-text">Post</h1>
                     </div>
 
                     <div className="pb-20">
@@ -70,12 +70,12 @@ export const PostThread = () => {
                         {data.parents.map((parent: any) => (
                             <div key={parent.id} className="relative">
                                 <Post post={parent} />
-                                <div className="absolute left-8 top-16 bottom-0 w-0.5 bg-gray-200" />
+                                <div className="absolute left-8 top-16 bottom-0 w-0.5 bg-border" />
                             </div>
                         ))}
 
                         {/* Main Post */}
-                        <div className="border-b border-gray-200">
+                        <div className="border-b border-border">
                             <Post post={data.post} />
                         </div>
 

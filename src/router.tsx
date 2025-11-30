@@ -6,6 +6,7 @@ import { PostThread } from './pages/PostThread'
 import { Profile } from './pages/Profile'
 import { Search } from './features/search/pages/SearchPage'
 import { HashtagFeed } from './pages/HashtagFeed';
+import { Settings } from './pages/Settings';
 const rootRoute = createRootRoute({
     component: App,
 })
@@ -51,6 +52,12 @@ const hashtagRoute = createRoute({
     component: HashtagFeed,
 });
 
+const settingsRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: '/settings',
+    component: Settings,
+});
+
 import { Notifications } from './pages/Notifications';
 import { redirect } from '@tanstack/react-router';
 
@@ -93,6 +100,7 @@ const routeTree = rootRoute.addChildren([
     postThreadRoute,
     searchRoute,
     hashtagRoute,
+    settingsRoute,
     notificationsRoute,
     postRedirectRoute,
 ])

@@ -98,18 +98,18 @@ export const CommentComposer = ({ parentId, onSuccess }: CommentComposerProps) =
     };
 
     return (
-        <div className="flex gap-3 p-4 border-b border-gray-100 relative">
-            <div className="w-10 h-10 rounded-full bg-gray-200 flex-shrink-0 overflow-hidden">
+        <div className="flex gap-3 p-4 border-b border-border relative">
+            <div className="w-10 h-10 rounded-full bg-surface-hover flex-shrink-0 overflow-hidden">
                 {user?.photoURL ? (
                     <img src={user.photoURL} alt={user.displayName || 'User'} className="w-full h-full object-cover" />
                 ) : (
-                    <div className="w-full h-full bg-gray-300" />
+                    <div className="w-full h-full bg-surface-hover" />
                 )}
             </div>
             <div className="flex-grow">
                 <textarea
                     ref={textareaRef}
-                    className="w-full resize-none border-none focus:ring-0 text-gray-900 placeholder-gray-500 text-lg min-h-[50px] p-0 bg-transparent"
+                    className="w-full resize-none border-none focus:ring-0 text-text placeholder-muted text-lg min-h-[50px] p-0 bg-transparent"
                     placeholder="Write your reply"
                     value={text}
                     onChange={(e) => setText(e.target.value)}
@@ -141,7 +141,7 @@ export const CommentComposer = ({ parentId, onSuccess }: CommentComposerProps) =
                     )}
 
                     {selectedGif && (
-                        <div className="relative w-full max-w-[200px] rounded-lg overflow-hidden border border-gray-200">
+                        <div className="relative w-full max-w-[200px] rounded-lg overflow-hidden border border-border">
                             <img src={selectedGif.url} alt={selectedGif.title} className="w-full h-auto" />
                             <div className="absolute bottom-2 left-2 bg-black/60 text-white text-xs px-2 py-1 rounded">GIF</div>
                             <button
@@ -156,7 +156,7 @@ export const CommentComposer = ({ parentId, onSuccess }: CommentComposerProps) =
 
                 {/* Toolbar */}
                 <div className="flex justify-between items-center mt-2">
-                    <div className="flex items-center gap-1 text-blue-500">
+                    <div className="flex items-center gap-1 text-primary">
                         <input
                             type="file"
                             ref={imageInputRef}
@@ -168,7 +168,7 @@ export const CommentComposer = ({ parentId, onSuccess }: CommentComposerProps) =
 
                         <button
                             onClick={() => imageInputRef.current?.click()}
-                            className="p-2 hover:bg-blue-50 rounded-full transition-colors"
+                            className="p-2 hover:bg-surface-hover rounded-full transition-colors"
                             title="Image"
                         >
                             <Image size={20} />
@@ -176,7 +176,7 @@ export const CommentComposer = ({ parentId, onSuccess }: CommentComposerProps) =
 
                         <button
                             onClick={() => setShowGifSearch(true)}
-                            className="p-2 hover:bg-blue-50 rounded-full transition-colors"
+                            className="p-2 hover:bg-surface-hover rounded-full transition-colors"
                             title="GIF"
                         >
                             <Film size={20} />
@@ -186,7 +186,7 @@ export const CommentComposer = ({ parentId, onSuccess }: CommentComposerProps) =
                             <button
                                 ref={emojiButtonRef}
                                 onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-                                className={`p-2 hover:bg-blue-50 rounded-full transition-colors ${showEmojiPicker ? 'bg-blue-50 text-blue-600' : ''}`}
+                                className={`p-2 hover:bg-surface-hover rounded-full transition-colors ${showEmojiPicker ? 'bg-surface-hover text-primary' : ''}`}
                             >
                                 <Smile size={20} />
                             </button>
@@ -201,7 +201,7 @@ export const CommentComposer = ({ parentId, onSuccess }: CommentComposerProps) =
 
                         <button
                             onClick={() => setShowLanguageSelector(true)}
-                            className="text-gray-500 hover:text-blue-500 text-sm font-medium px-2"
+                            className="text-muted hover:text-primary text-sm font-medium px-2"
                         >
                             {selectedLanguages.length > 0 ? selectedLanguages[0].toUpperCase() : 'EN'}
                         </button>
@@ -212,7 +212,7 @@ export const CommentComposer = ({ parentId, onSuccess }: CommentComposerProps) =
                         <button
                             onClick={handlePost}
                             disabled={!isDirty || isPending || text.length > MAX_CHARS}
-                            className="bg-blue-500 text-white font-bold py-1.5 px-4 rounded-full text-sm hover:bg-blue-600 transition-colors disabled:opacity-50"
+                            className="bg-primary text-white font-bold py-1.5 px-4 rounded-full text-sm hover:opacity-90 transition-colors disabled:opacity-50"
                         >
                             {isPending ? 'Reply' : 'Reply'}
                         </button>

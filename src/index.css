@@ -2,6 +2,129 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    /* Default to Light Mode */
+    --color-primary: 211 100% 50%;
+    /* Blue */
+    --color-bg: 0 0% 100%;
+    /* White */
+    --color-surface: 0 0% 98%;
+    /* Very Light Gray (Page Background) */
+    --color-surface-hover: 0 0% 95%;
+    /* Light Gray Hover */
+    --color-card-bg: 0 0% 100%;
+    /* White Card Background */
+    --color-input-bg: 0 0% 96%;
+    /* Slightly darker for inputs */
+    --color-text: 0 0% 0%;
+    /* Black */
+    --color-muted: 0 0% 40%;
+    /* Gray Text */
+    --color-border: 0 0% 90%;
+    /* Light Gray */
+    --color-modal-border: 0 0% 90%;
+    /* Light Gray for Modals */
+
+    --color-accent: 211 100% 50%;
+    /* Primary Action Color */
+    --color-accent-fg: 0 0% 100%;
+    /* Text on Accent */
+
+    /* Fonts */
+    --font-family-base: system-ui, -apple-system, sans-serif;
+    --font-size-base: 16px;
+}
+
+.dark {
+    --color-primary: 211 100% 50%;
+    /* Blue */
+    --color-bg: 0 0% 0%;
+    /* Black */
+    --color-surface: 0 0% 5%;
+    /* Very Dark Gray */
+    --color-surface-hover: 0 0% 12%;
+    /* Lighter Surface Hover */
+    --color-card-bg: 0 0% 0%;
+    /* Black Card Background */
+    --color-input-bg: 0 0% 10%;
+    /* Dark Gray Input */
+    --color-text: 0 0% 100%;
+    /* White */
+    --color-muted: 0 0% 60%;
+    /* Muted Text */
+    --color-border: 0 0% 20%;
+    /* Dark Gray Border */
+    --color-modal-border: 211 100% 50%;
+    /* Blue Border for Modals */
+
+    --color-accent: 211 100% 50%;
+    --color-accent-fg: 0 0% 100%;
+}
+
+.lcars {
+    --color-primary: 39 100% 50%;
+    /* Tactical Orange (#FF9900) */
+    --color-bg: 0 0% 0%;
+    /* Deep Black */
+    --color-surface: 240 20% 8%;
+    /* Very Dark Blue-Grey */
+    --color-surface-hover: 39 100% 20%;
+    /* Dark Orange Hover */
+    --color-card-bg: 0 0% 0%;
+    /* Black Card */
+    --color-input-bg: 240 20% 15%;
+    /* Lighter Blue-Grey Input */
+    --color-text: 45 100% 50%;
+    /* Command Gold Text */
+    --color-muted: 210 40% 70%;
+    /* Light Blue-Grey Muted */
+    --color-border: 20 80% 60%;
+    /* Rust/Orange Border */
+    --color-modal-border: 39 100% 50%;
+    /* Tactical Orange Border for Modals */
+
+    --color-accent: 39 100% 50%;
+    /* Tactical Orange */
+    --color-accent-fg: 0 0% 0%;
+    /* Black Text on Orange */
+
+    /* Override text for better readability */
+    --color-text: 210 50% 90%;
+    /* Light Blue-Grey for body text */
+}
+
+/* Font Families */
+[data-font="inter"] {
+    --font-family-base: 'Inter', sans-serif;
+}
+
+[data-font="lato"] {
+    --font-family-base: 'Lato', sans-serif;
+}
+
+/* Font Sizes */
+[data-font-size="sm"] {
+    --font-size-base: 14px;
+}
+
+[data-font-size="md"] {
+    --font-size-base: 16px;
+}
+
+[data-font-size="lg"] {
+    --font-size-base: 18px;
+}
+
+[data-font-size="xl"] {
+    --font-size-base: 20px;
+}
+
+body {
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-base);
+}
+
+
 @font-face {
     font-family: 'Lato';
     src: url('./fonts/Lato/Lato-Bold.ttf') format('truetype');

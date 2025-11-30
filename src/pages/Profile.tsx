@@ -25,7 +25,7 @@ export const Profile = () => {
         return (
             <Layout onNewPost={() => setIsComposerOpen(true)}>
                 <div className="flex justify-center items-center h-screen">
-                    <Loader2 className="w-8 h-8 animate-spin text-gray-500" />
+                    <Loader2 className="w-8 h-8 animate-spin text-muted" />
                 </div>
             </Layout>
         );
@@ -34,7 +34,7 @@ export const Profile = () => {
     if (error || !user) {
         return (
             <Layout onNewPost={() => setIsComposerOpen(true)}>
-                <div className="flex flex-col justify-center items-center h-screen text-gray-500">
+                <div className="flex flex-col justify-center items-center h-screen text-muted">
                     <p className="text-xl font-bold">User not found</p>
                     <p>The profile @{handle} does not exist.</p>
                 </div>
@@ -45,7 +45,7 @@ export const Profile = () => {
     return (
         <>
             <Layout onNewPost={() => setIsComposerOpen(true)}>
-                <div className="w-full min-h-screen bg-white flex flex-col">
+                <div className="w-full min-h-screen bg-bg flex flex-col">
 
 
                     <ProfileHeader user={user} />

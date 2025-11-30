@@ -19,28 +19,28 @@ export const Notifications = () => {
     return (
         <>
             <Layout onNewPost={() => setIsComposerOpen(true)}>
-                <div className="w-full min-h-screen bg-white flex flex-col">
-                    <div className="sticky top-0 z-10 bg-white/80 backdrop-blur-md border-b border-gray-100">
-                        <h1 className="font-bold text-xl px-4 py-3">Notifications</h1>
+                <div className="w-full min-h-screen bg-bg flex flex-col">
+                    <div className="sticky top-0 z-10 bg-bg/80 backdrop-blur-md border-b border-border">
+                        <h1 className="font-bold text-xl px-4 py-3 text-text">Notifications</h1>
                         <div className="flex">
                             <button
                                 onClick={() => setActiveTab('all')}
-                                className={`flex-1 py-3 text-sm font-medium hover:bg-gray-50 transition-colors relative ${activeTab === 'all' ? 'text-black' : 'text-gray-500'
+                                className={`flex-1 py-3 text-sm font-medium hover:bg-surface-hover transition-colors relative ${activeTab === 'all' ? 'text-text' : 'text-muted'
                                     }`}
                             >
                                 All
                                 {activeTab === 'all' && (
-                                    <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#0095f6] rounded-t-full mx-12" />
+                                    <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-primary rounded-t-full mx-12" />
                                 )}
                             </button>
                             <button
                                 onClick={() => setActiveTab('mentions')}
-                                className={`flex-1 py-3 text-sm font-medium hover:bg-gray-50 transition-colors relative ${activeTab === 'mentions' ? 'text-black' : 'text-gray-500'
+                                className={`flex-1 py-3 text-sm font-medium hover:bg-surface-hover transition-colors relative ${activeTab === 'mentions' ? 'text-text' : 'text-muted'
                                     }`}
                             >
                                 Mentions
                                 {activeTab === 'mentions' && (
-                                    <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#0095f6] rounded-t-full mx-12" />
+                                    <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-primary rounded-t-full mx-12" />
                                 )}
                             </button>
                         </div>
@@ -52,7 +52,7 @@ export const Notifications = () => {
                                 <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
                             </div>
                         ) : notifications?.length === 0 ? (
-                            <div className="flex flex-col items-center justify-center py-12 text-gray-500">
+                            <div className="flex flex-col items-center justify-center py-12 text-muted">
                                 <p className="text-lg font-medium">No notifications yet</p>
                                 <p className="text-sm">When you get notifications, they'll show up here.</p>
                             </div>

@@ -81,12 +81,12 @@ export const SearchInput = ({ initialValue = '', placeholder = 'Search', onSearc
         <div ref={containerRef} className="relative w-full">
             <form onSubmit={handleSubmit} className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Search className="h-4 w-4 text-gray-400" />
+                    <Search className="h-4 w-4 text-muted" />
                 </div>
                 <input
                     ref={inputRef}
                     type="text"
-                    className="block w-full pl-10 pr-10 py-2.5 bg-gray-100 border-transparent text-gray-900 placeholder-gray-500 rounded-full focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-colors"
+                    className="block w-full pl-10 pr-10 py-2.5 bg-input-bg border-transparent text-text placeholder-muted rounded-full focus:outline-none focus:bg-bg focus:ring-1 focus:ring-primary focus:border-primary sm:text-sm transition-colors"
                     placeholder={placeholder}
                     value={value}
                     onChange={handleChange}
@@ -96,7 +96,7 @@ export const SearchInput = ({ initialValue = '', placeholder = 'Search', onSearc
                     <button
                         type="button"
                         onClick={handleClear}
-                        className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer text-gray-400 hover:text-gray-600"
+                        className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer text-muted hover:text-text"
                     >
                         <X className="h-4 w-4" />
                     </button>
@@ -105,14 +105,14 @@ export const SearchInput = ({ initialValue = '', placeholder = 'Search', onSearc
 
             {/* Search Preview Overlay */}
             {showSuggestions && value.trim() && (
-                <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden z-50">
+                <div className="absolute top-full left-0 right-0 mt-2 bg-bg rounded-xl shadow-lg border border-border overflow-hidden z-50">
                     {/* Search for "query" */}
                     <button
                         onClick={() => performSearch(value)}
-                        className="w-full text-left px-4 py-3 hover:bg-gray-50 flex items-center gap-3 border-b border-gray-50"
+                        className="w-full text-left px-4 py-3 hover:bg-surface-hover flex items-center gap-3 border-b border-border"
                     >
-                        <Search className="w-4 h-4 text-gray-400" />
-                        <span className="text-gray-900">Search for "{value}"</span>
+                        <Search className="w-4 h-4 text-muted" />
+                        <span className="text-text">Search for "{value}"</span>
                     </button>
 
                     {/* User Suggestions */}
@@ -126,7 +126,7 @@ export const SearchInput = ({ initialValue = '', placeholder = 'Search', onSearc
                                         setShowSuggestions(false);
                                         setValue('');
                                     }}
-                                    className="w-full text-left px-4 py-3 hover:bg-gray-50 flex items-center gap-3"
+                                    className="w-full text-left px-4 py-3 hover:bg-surface-hover flex items-center gap-3"
                                 >
                                     <img
                                         src={user.avatar_url || `https://ui-avatars.com/api/?name=${user.username}`}
@@ -134,8 +134,8 @@ export const SearchInput = ({ initialValue = '', placeholder = 'Search', onSearc
                                         className="w-8 h-8 rounded-full object-cover"
                                     />
                                     <div className="flex-1 min-w-0">
-                                        <div className="font-bold text-gray-900 truncate">{user.display_name || user.username}</div>
-                                        <div className="text-gray-500 text-sm truncate">@{user.username}</div>
+                                        <div className="font-bold text-text truncate">{user.display_name || user.username}</div>
+                                        <div className="text-muted text-sm truncate">@{user.username}</div>
                                     </div>
                                 </button>
                             ))}

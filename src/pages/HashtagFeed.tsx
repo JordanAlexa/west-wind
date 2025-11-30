@@ -46,22 +46,22 @@ export const HashtagFeed = () => {
     return (
         <>
             <Layout onNewPost={() => setIsComposerOpen(true)}>
-                <div className="sticky top-0 z-10 bg-white/80 backdrop-blur-md border-b border-gray-100 px-4 py-3 flex items-center gap-4">
+                <div className="sticky top-0 z-10 bg-bg/80 backdrop-blur-md border-b border-border px-4 py-3 flex items-center gap-4">
                     <button
                         onClick={() => window.history.back()}
-                        className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                        className="p-2 -ml-2 hover:bg-surface-hover rounded-full transition-colors"
                     >
-                        <ArrowLeft className="w-5 h-5" />
+                        <ArrowLeft className="w-5 h-5 text-text" />
                     </button>
                     <div>
-                        <h1 className="font-bold text-xl">#{tag}</h1>
+                        <h1 className="font-bold text-xl text-text">#{tag}</h1>
                     </div>
                 </div>
 
-                <div className="w-full min-h-screen bg-white">
+                <div className="w-full min-h-screen bg-bg">
                     {status === 'pending' ? (
                         <div className="flex justify-center p-8">
-                            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+                            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
                         </div>
                     ) : status === 'error' ? (
                         <div className="p-4 text-center text-red-500">Error loading posts</div>
@@ -75,7 +75,7 @@ export const HashtagFeed = () => {
                                 </div>
                             ))}
                             {data.pages[0].posts.length === 0 && (
-                                <div className="p-8 text-center text-gray-500">
+                                <div className="p-8 text-center text-muted">
                                     No posts found with #{tag}
                                 </div>
                             )}
@@ -84,7 +84,7 @@ export const HashtagFeed = () => {
 
                     <div ref={loadMoreRef} className="h-10 flex justify-center items-center p-4">
                         {isFetchingNextPage && (
-                            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900"></div>
+                            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
                         )}
                     </div>
                 </div>

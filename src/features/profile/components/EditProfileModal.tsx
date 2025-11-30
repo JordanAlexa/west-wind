@@ -108,22 +108,22 @@ export const EditProfileModal = ({ isOpen, onClose, currentUser, currentProfile 
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-0">
             <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
 
-            <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+            <div className="relative w-full max-w-lg bg-bg border-2 border-modal-border rounded-2xl shadow-xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
                 <form onSubmit={formik.handleSubmit}>
                     {/* Header */}
-                    <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+                    <div className="flex items-center justify-between px-4 py-3 border-b border-border">
                         <button
                             type="button"
                             onClick={onClose}
-                            className="p-2 -ml-2 text-gray-900 hover:bg-gray-100 rounded-full transition-colors font-semibold text-sm"
+                            className="p-2 -ml-2 text-text hover:bg-surface-hover rounded-full transition-colors font-semibold text-sm"
                         >
                             Cancel
                         </button>
-                        <h2 className="text-base font-bold text-gray-900">Edit Profile</h2>
+                        <h2 className="text-base font-bold text-text">Edit Profile</h2>
                         <button
                             type="submit"
                             disabled={mutation.isPending || !formik.isValid}
-                            className="px-4 py-1.5 bg-gray-900 text-white text-sm font-bold rounded-full hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                            className="px-4 py-1.5 bg-primary text-white text-sm font-bold rounded-full hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                         >
                             {mutation.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Save'}
                         </button>
@@ -179,7 +179,7 @@ export const EditProfileModal = ({ isOpen, onClose, currentUser, currentProfile 
                             className="relative inline-block group cursor-pointer"
                             onClick={() => avatarInputRef.current?.click()}
                         >
-                            <div className="w-20 h-20 rounded-full border-4 border-white bg-gray-200 overflow-hidden">
+                            <div className="w-20 h-20 rounded-full border-4 border-bg bg-surface overflow-hidden">
                                 <img
                                     src={avatarPreview || currentProfile.avatar_url || `https://ui-avatars.com/api/?name=${currentProfile.username}`}
                                     alt={currentProfile.username}
@@ -197,13 +197,13 @@ export const EditProfileModal = ({ isOpen, onClose, currentUser, currentProfile 
                     {/* Form Fields */}
                     <div className="px-4 pb-6 space-y-4">
                         <div>
-                            <label htmlFor="display_name" className="block text-xs font-bold text-gray-500 uppercase mb-1">
+                            <label htmlFor="display_name" className="block text-xs font-bold text-muted uppercase mb-1">
                                 Display Name
                             </label>
                             <input
                                 id="display_name"
                                 type="text"
-                                className={`w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${formik.touched.display_name && formik.errors.display_name ? 'ring-2 ring-red-500' : ''}`}
+                                className={`w-full px-3 py-2 bg-input-bg border border-border text-text rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all ${formik.touched.display_name && formik.errors.display_name ? 'ring-2 ring-red-500' : ''}`}
                                 placeholder="e.g. Alice Roberts"
                                 {...formik.getFieldProps('display_name')}
                             />
@@ -213,12 +213,12 @@ export const EditProfileModal = ({ isOpen, onClose, currentUser, currentProfile 
                         </div>
 
                         <div>
-                            <label htmlFor="bio" className="block text-xs font-bold text-gray-500 uppercase mb-1">
+                            <label htmlFor="bio" className="block text-xs font-bold text-muted uppercase mb-1">
                                 Description
                             </label>
                             <textarea
                                 id="bio"
-                                className={`w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none h-24 ${formik.touched.bio && formik.errors.bio ? 'ring-2 ring-red-500' : ''}`}
+                                className={`w-full px-3 py-2 bg-input-bg border border-border text-text rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none h-24 ${formik.touched.bio && formik.errors.bio ? 'ring-2 ring-red-500' : ''}`}
                                 placeholder="e.g. Artist, dog-lover, and avid reader."
                                 {...formik.getFieldProps('bio')}
                             />

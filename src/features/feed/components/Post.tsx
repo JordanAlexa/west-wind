@@ -62,7 +62,7 @@ export const Post: React.FC<PostProps> = ({ post }) => {
         <>
             <div
                 onClick={handlePostClick}
-                className="border-b border-gray-200 p-3 hover:bg-gray-50 transition-colors cursor-pointer"
+                className="border-b border-border p-3 bg-card-bg hover:bg-surface-hover transition-colors cursor-pointer"
             >
                 <div className="flex gap-3">
                     <Link
@@ -83,17 +83,17 @@ export const Post: React.FC<PostProps> = ({ post }) => {
                                 to="/profile/$handle"
                                 params={{ handle: post.author.handle }}
                                 onClick={(e) => e.stopPropagation()}
-                                className="font-bold text-gray-900 hover:underline truncate"
+                                className="font-bold text-text hover:underline truncate"
                             >
                                 {post.author.name}
                             </Link>
-                            <span className="text-gray-500 truncate flex-shrink min-w-0">{post.author.handle}</span>
-                            <span className="text-gray-500 flex-shrink-0">·</span>
-                            <span className="text-gray-500 flex-shrink-0">
+                            <span className="text-muted truncate flex-shrink min-w-0">{post.author.handle}</span>
+                            <span className="text-muted flex-shrink-0">·</span>
+                            <span className="text-muted flex-shrink-0">
                                 {formatRelativeTime(post.timestamp)}
                             </span>
                             {post.isEdited && (
-                                <span className="text-gray-400 text-xs ml-1">
+                                <span className="text-muted text-xs ml-1">
                                     (edited{post.editedBy && post.editedBy.id !== post.author.id ? ` by ${post.editedBy.name}` : ''})
                                 </span>
                             )}
@@ -105,12 +105,12 @@ export const Post: React.FC<PostProps> = ({ post }) => {
                                             e.stopPropagation();
                                             setIsMenuOpen(!isMenuOpen);
                                         }}
-                                        className="p-1 hover:bg-gray-100 rounded-full text-gray-500"
+                                        className="p-1 hover:bg-surface-hover rounded-full text-muted"
                                     >
                                         <MoreHorizontal size={16} />
                                     </button>
                                     {isMenuOpen && (
-                                        <div className="absolute right-0 top-6 bg-white shadow-lg rounded-lg border border-gray-100 z-10 w-32 overflow-hidden">
+                                        <div className="absolute right-0 top-6 bg-surface shadow-lg rounded-lg border border-border z-10 w-32 overflow-hidden">
                                             {canEdit && (
                                                 <button
                                                     onClick={(e) => {
@@ -120,7 +120,7 @@ export const Post: React.FC<PostProps> = ({ post }) => {
                                                         setIsEditModalOpen(true);
                                                         setIsMenuOpen(false);
                                                     }}
-                                                    className="flex items-center gap-2 w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 text-left"
+                                                    className="flex items-center gap-2 w-full px-4 py-2 text-sm text-text hover:bg-surface-hover text-left"
                                                 >
                                                     <Edit size={14} /> Edit
                                                 </button>
@@ -145,7 +145,7 @@ export const Post: React.FC<PostProps> = ({ post }) => {
                             )}
                         </div>
 
-                        <div className="mb-3 text-[15px] leading-5 text-gray-900">
+                        <div className="mb-3 text-[15px] leading-5 text-text">
                             <RichText content={post.content} />
                         </div>
 
@@ -159,15 +159,15 @@ export const Post: React.FC<PostProps> = ({ post }) => {
                             </div>
                         )}
 
-                        <div className="flex justify-between text-gray-500 max-w-md">
+                        <div className="flex justify-between text-muted max-w-md">
                             <button
-                                className="flex items-center gap-2 hover:text-blue-500 group"
+                                className="flex items-center gap-2 hover:text-primary group"
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     setIsReplyModalOpen(true);
                                 }}
                             >
-                                <div className="p-2 rounded-full group-hover:bg-blue-50">
+                                <div className="p-2 rounded-full group-hover:bg-surface-hover">
                                     <MessageCircle size={18} />
                                 </div>
                                 <span className="text-sm">{post.replyCount || post.replies || 0}</span>
@@ -180,7 +180,7 @@ export const Post: React.FC<PostProps> = ({ post }) => {
                                 }}
                                 disabled={isReposting}
                             >
-                                <div className="p-2 rounded-full group-hover:bg-green-50">
+                                <div className="p-2 rounded-full group-hover:bg-surface-hover">
                                     <Repeat size={18} className={isReposting ? 'animate-pulse' : ''} />
                                 </div>
                                 <span className="text-sm">{post.reposts}</span>
@@ -193,7 +193,7 @@ export const Post: React.FC<PostProps> = ({ post }) => {
                                 }}
                                 disabled={isLiking}
                             >
-                                <div className="p-2 rounded-full group-hover:bg-red-50">
+                                <div className="p-2 rounded-full group-hover:bg-surface-hover">
                                     <Heart
                                         size={18}
                                         className={`${isLiking ? 'animate-pulse' : ''} ${post.likedByViewer ? 'fill-red-500 text-red-500' : ''}`}
@@ -202,10 +202,10 @@ export const Post: React.FC<PostProps> = ({ post }) => {
                                 <span className={`text-sm ${post.likedByViewer ? 'text-red-500' : ''}`}>{post.likes}</span>
                             </button>
                             <button
-                                className="flex items-center gap-2 hover:text-blue-500 group"
+                                className="flex items-center gap-2 hover:text-primary group"
                                 onClick={(e) => e.stopPropagation()}
                             >
-                                <div className="p-2 rounded-full group-hover:bg-blue-50">
+                                <div className="p-2 rounded-full group-hover:bg-surface-hover">
                                     <Share size={18} />
                                 </div>
                             </button>

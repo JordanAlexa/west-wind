@@ -37,7 +37,7 @@ export const ProfileHeader = ({ user }: ProfileHeaderProps) => {
                 <div className="flex justify-between items-end -mt-10 sm:-mt-12 mb-3">
                     {/* Avatar */}
                     <div className="relative">
-                        <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-white bg-white overflow-hidden">
+                        <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-bg bg-bg overflow-hidden">
                             <img
                                 src={user.avatar || `https://ui-avatars.com/api/?name=${user.name}`}
                                 alt={user.name}
@@ -50,12 +50,12 @@ export const ProfileHeader = ({ user }: ProfileHeaderProps) => {
                     {isOwnProfile ? (
                         <button
                             onClick={() => setIsEditModalOpen(true)}
-                            className="bg-gray-200 text-gray-900 px-4 py-1.5 rounded-full text-sm font-bold hover:bg-gray-300 transition-colors mt-12 sm:mt-0"
+                            className="bg-surface border border-border text-text px-4 py-1.5 rounded-full text-sm font-bold hover:bg-surface-hover transition-colors mt-12 sm:mt-0"
                         >
                             Edit Profile
                         </button>
                     ) : (
-                        <button className="bg-gray-900 text-white px-4 py-1.5 rounded-full text-sm font-bold hover:bg-gray-800 transition-colors mt-12 sm:mt-0">
+                        <button className="bg-primary text-white px-4 py-1.5 rounded-full text-sm font-bold hover:opacity-90 transition-colors mt-12 sm:mt-0">
                             Follow
                         </button>
                     )}
@@ -63,29 +63,29 @@ export const ProfileHeader = ({ user }: ProfileHeaderProps) => {
 
                 {/* User Info */}
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900 leading-tight">{user.name}</h1>
-                    <div className="flex items-center gap-2 text-gray-500 text-sm">
+                    <h1 className="text-2xl font-bold text-text leading-tight">{user.name}</h1>
+                    <div className="flex items-center gap-2 text-muted text-sm">
                         <span>{user.handle}</span>
                         {/* <span className="bg-gray-100 px-1.5 rounded text-xs">follows you</span> */}
                     </div>
                     {user.bio && (
-                        <p className="mt-2 text-gray-900 text-sm whitespace-pre-wrap">{user.bio}</p>
+                        <p className="mt-2 text-text text-sm whitespace-pre-wrap">{user.bio}</p>
                     )}
                 </div>
 
                 {/* Stats */}
                 <div className="flex items-center gap-4 mt-3 text-sm">
                     <div className="hover:underline cursor-pointer">
-                        <span className="font-bold text-gray-900">{user.followersCount || 0}</span>
-                        <span className="text-gray-500 ml-1">followers</span>
+                        <span className="font-bold text-text">{user.followersCount || 0}</span>
+                        <span className="text-muted ml-1">followers</span>
                     </div>
                     <div className="hover:underline cursor-pointer">
-                        <span className="font-bold text-gray-900">{user.followsCount || 0}</span>
-                        <span className="text-gray-500 ml-1">following</span>
+                        <span className="font-bold text-text">{user.followsCount || 0}</span>
+                        <span className="text-muted ml-1">following</span>
                     </div>
                     <div className="hover:underline cursor-pointer">
-                        <span className="font-bold text-gray-900">{user.postsCount || 0}</span>
-                        <span className="text-gray-500 ml-1">posts</span>
+                        <span className="font-bold text-text">{user.postsCount || 0}</span>
+                        <span className="text-muted ml-1">posts</span>
                     </div>
                 </div>
             </div>

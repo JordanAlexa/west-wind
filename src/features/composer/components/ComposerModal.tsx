@@ -40,15 +40,15 @@ export const ComposerModal = ({ isOpen, onClose }: ComposerModalProps) => {
             />
 
             {/* Modal Content */}
-            <div className="relative w-full max-w-[600px] bg-white rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-                <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+            <div className="relative w-full max-w-xl bg-bg border-2 border-modal-border rounded-2xl shadow-xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+                <div className="flex items-center justify-between px-4 py-3 border-b border-border">
                     <button
                         onClick={handleClose}
-                        className="p-2 -ml-2 rounded-full hover:bg-gray-100 transition-colors text-gray-600"
+                        className="p-2 -ml-2 rounded-full hover:bg-surface-hover transition-colors text-muted"
                     >
                         <X className="w-5 h-5" />
                     </button>
-                    <span className="font-bold text-[#0095f6]">New Post</span>
+                    <span className="font-bold text-primary">New Post</span>
                     <div className="w-9" /> {/* Spacer for centering */}
                 </div>
 

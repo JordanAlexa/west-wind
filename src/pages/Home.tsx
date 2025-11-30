@@ -2,19 +2,39 @@ import { useState } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import { useAuthStore } from '../features/auth/stores/authStore'
 import { Layout } from '../components/Layout'
+import logoTransparent from '../assets/logo_transparent_v1_small.png'
 import { Feed } from '../features/feed/components/Feed'
 import { ComposerModal } from '../features/composer/components/ComposerModal'
-import logo from '../assets/logo.png'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { loginSchema, type LoginSchema } from '../features/auth/schemas/authSchemas'
+import { toast } from 'sonner'
 
 function Home() {
     const navigate = useNavigate()
     const { user, loading, signInWithGoogle } = useAuthStore()
     const [isComposerOpen, setIsComposerOpen] = useState(false)
 
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isSubmitting },
+    } = useForm<LoginSchema>({
+        resolver: zodResolver(loginSchema),
+    })
+
+    const onSubmit = async (data: LoginSchema) => {
+        // TODO: Implement actual login logic with backend
+        console.log('Login data:', data)
+        toast.info('Login logic not yet implemented on backend for password auth', {
+            description: 'Please use Google Login for now',
+        })
+    }
+
     if (loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-white">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+            <div className="min-h-screen flex items-center justify-center bg-bg">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
             </div>
         )
     }
@@ -24,10 +44,10 @@ function Home() {
             <>
                 <Layout onNewPost={() => setIsComposerOpen(true)}>
                     <div className="w-full">
-                        <div className="bg-white border-b border-gray-100 px-4 py-3 flex justify-center items-center">
-                            <img src={logo} alt="West-Wind Logo" className="w-[67px] md:w-[73px] h-auto object-contain" />
+                        <div className="bg-bg border-b border-border px-4 py-3 flex justify-center items-center">
+                            <img src={logoTransparent} alt="West Wind" className="h-24 w-auto object-contain" />
                         </div>
-                        <div className="sticky top-0 z-10 bg-gray-200 h-[48px] w-full"></div>
+                        <div className="sticky top-0 z-10 bg-bg h-[48px] w-full"></div>
                         <Feed />
                     </div>
                 </Layout>
@@ -40,12 +60,12 @@ function Home() {
     }
 
     return (
-        <div className="min-h-screen flex flex-col bg-white text-gray-900 font-sans">
+        <div className="min-h-screen flex flex-col bg-bg text-text font-sans">
             {/* Main Content Area */}
             <main className="flex-grow flex items-center justify-center p-4 gap-8">
                 {/* Left Side - Placeholder */}
-                <div className="hidden md:block" style={{ width: '570px', height: '492px' }}>
-                    <img src={logo} alt="West-Wind Logo" className="w-full h-full object-contain" />
+                <div className="hidden md:flex items-center justify-center" style={{ width: '570px', height: '492px' }}>
+                    <img src={logoTransparent} alt="West Wind" className="w-full h-full object-contain" />
                 </div>
 
                 {/* Right Side - Login Form */}
@@ -54,21 +74,33 @@ function Home() {
                     <div className="bg-white px-10 pt-10 pb-6 flex flex-col items-center w-[350px]">
                         <h1 className="text-5xl mb-8 tracking-tighter" style={{ fontFamily: 'Lato, sans-serif', fontWeight: 700 }}>West-Wind</h1>
 
-                        <form className="w-full flex flex-col gap-1.5" onSubmit={(e) => e.preventDefault()}>
-                            <input
-                                type="text"
-                                placeholder="Phone number, username, or email"
-                                className="w-full bg-[#fafafa] border border-[#dbdbdb] rounded-[3px] px-[9px] py-[9px] text-xs focus:outline-none focus:border-gray-400 placeholder-gray-500"
-                            />
-                            <input
-                                type="password"
-                                placeholder="Password"
-                                className="w-full bg-[#fafafa] border border-[#dbdbdb] rounded-[3px] px-[9px] py-[9px] text-xs focus:outline-none focus:border-gray-400 placeholder-gray-500"
-                            />
+                        <form className="w-full flex flex-col gap-1.5" onSubmit={handleSubmit(onSubmit)}>
+                            <div className="w-full">
+                                <input
+                                    type="text"
+                                    placeholder="Phone number, username, or email"
+                                    className={`w-full bg-[#fafafa] border ${errors.identifier ? 'border-red-500' : 'border-[#dbdbdb]'} rounded-[3px] px-[9px] py-[9px] text-xs focus:outline-none focus:border-gray-400 placeholder-gray-500`}
+                                    {...register('identifier')}
+                                />
+                                {errors.identifier && <span className="text-red-500 text-[10px] mt-1">{errors.identifier.message}</span>}
+                            </div>
+
+                            <div className="w-full">
+                                <input
+                                    type="password"
+                                    placeholder="Password"
+                                    className={`w-full bg-[#fafafa] border ${errors.password ? 'border-red-500' : 'border-[#dbdbdb]'} rounded-[3px] px-[9px] py-[9px] text-xs focus:outline-none focus:border-gray-400 placeholder-gray-500`}
+                                    {...register('password')}
+                                />
+                                {errors.password && <span className="text-red-500 text-[10px] mt-1">{errors.password.message}</span>}
+                            </div>
+
                             <button
-                                className="w-full bg-[#0095f6] text-white font-semibold py-[5px] rounded-[8px] mt-2 text-sm hover:bg-[#1877f2] transition-colors disabled:opacity-70"
+                                type="submit"
+                                disabled={isSubmitting}
+                                className="w-full bg-[#0095f6] text-white font-semibold py-[5px] rounded-[8px] mt-2 text-sm hover:bg-[#1877f2] transition-colors disabled:opacity-70 flex justify-center items-center"
                             >
-                                Log in
+                                {isSubmitting ? 'Logging in...' : 'Log in'}
                             </button>
                         </form>
 
@@ -101,7 +133,6 @@ function Home() {
             {/* Footer */}
             <footer className="py-8 text-center text-xs text-gray-500">
                 <div className="flex flex-wrap justify-center gap-4 mb-4">
-                    <a href="#" className="hover:underline">Meta</a>
                     <a href="#" className="hover:underline">About</a>
                     <a href="#" className="hover:underline">Blog</a>
                     <a href="#" className="hover:underline">Jobs</a>

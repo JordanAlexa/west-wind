@@ -45,7 +45,7 @@ export const Feed = ({ hashtag, authorHandle, tab }: FeedProps) => {
     if (status === 'pending') {
         return (
             <div className="flex justify-center p-8">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
             </div>
         );
     }
@@ -55,7 +55,7 @@ export const Feed = ({ hashtag, authorHandle, tab }: FeedProps) => {
     }
 
     return (
-        <div className="w-full max-w-[600px] mx-auto bg-white border-x border-gray-200 min-h-screen flex flex-col">
+        <div className="w-full max-w-[600px] mx-auto bg-bg border-x border-border min-h-screen flex flex-col">
             {data.pages.map((page, i) => (
                 <div key={i}>
                     {page.posts.map((post) => (
@@ -66,7 +66,7 @@ export const Feed = ({ hashtag, authorHandle, tab }: FeedProps) => {
 
             <div ref={loadMoreRef} className="h-10 flex justify-center items-center p-4">
                 {isFetchingNextPage && (
-                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900"></div>
+                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
                 )}
             </div>
         </div>

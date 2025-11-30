@@ -34,15 +34,15 @@ export const ReplyModal = ({ isOpen, onClose, post }: ReplyModalProps) => {
             />
 
             {/* Modal Content */}
-            <div className="relative w-full max-w-[600px] bg-white rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-                <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+            <div className="relative w-full max-w-[600px] bg-bg border-2 border-modal-border rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+                <div className="flex items-center justify-between px-4 py-3 border-b border-border">
                     <button
                         onClick={onClose}
-                        className="p-2 -ml-2 rounded-full hover:bg-gray-100 transition-colors text-gray-600"
+                        className="p-2 -ml-2 rounded-full hover:bg-surface-hover transition-colors text-muted"
                     >
                         <X className="w-5 h-5" />
                     </button>
-                    <span className="font-bold text-gray-900">Reply</span>
+                    <span className="font-bold text-text">Reply</span>
                     <div className="w-9" /> {/* Spacer for centering */}
                 </div>
 
@@ -50,7 +50,7 @@ export const ReplyModal = ({ isOpen, onClose, post }: ReplyModalProps) => {
                     {/* Parent Post Context */}
                     <div className="mb-4 relative">
                         <Post post={post} />
-                        <div className="absolute left-8 top-16 bottom-[-20px] w-0.5 bg-gray-200" />
+                        <div className="absolute left-8 top-16 bottom-[-20px] w-0.5 bg-border" />
                     </div>
 
                     {/* Composer */}
