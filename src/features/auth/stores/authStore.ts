@@ -34,6 +34,7 @@ interface AuthState {
     signOut: () => Promise<void>;
     setUser: (user: AppUser | null) => void;
     setLoading: (loading: boolean) => void;
+    syncUser: (user: User) => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -44,10 +45,9 @@ export const useAuthStore = create<AuthState>((set) => ({
         set({ loading: true, error: null });
         try {
             console.log("Starting Google Sign In...");
-            const result = await signInWithPopup(auth, googleProvider);
-            const user = result.user;
-            console.log("Sign In Success:", user.email);
-            await syncUserWithBackend(user, set);
+            await signInWithPopup(auth, googleProvider);
+            // We do NOT sync here. App.tsx will detect the auth state change,
+            // establish the session cookie, and THEN call syncUser.
         } catch (error: any) {
             console.error("Sign In Error:", error);
             set({ error: error.message, loading: false });
@@ -73,9 +73,9 @@ export const useAuthStore = create<AuthState>((set) => ({
         set({ loading: true, error: null });
         try {
             if (isSignInWithEmailLink(auth, href)) {
-                const result = await signInWithEmailLink(auth, email, href);
+                await signInWithEmailLink(auth, email, href);
                 window.localStorage.removeItem('emailForSignIn');
-                await syncUserWithBackend(result.user, set);
+                // App.tsx will handle the sync
             }
         } catch (error: any) {
             console.error("Sign In With Email Link Error:", error);
@@ -149,11 +149,21 @@ export const useAuthStore = create<AuthState>((set) => ({
     },
     setUser: (user) => set({ user, loading: false }),
     setLoading: (loading) => set({ loading }),
+    syncUser: async (user: User) => {
+        // This action is called by App.tsx AFTER session cookie is established
+        try {
+            const appUser = await syncUserWithBackend(user);
+            set({ user: appUser, loading: false });
+        } catch (error: any) {
+            console.error("Sync User Error:", error);
+            set({ error: error.message, loading: false });
+        }
+    }
 }));
 
 
-// Helper to sync user with backend
-export const syncUserWithBackend = async (user: User, set: any, additionalData?: { username?: string; display_name?: string; avatar_url?: string }) => {
+// Helper to sync user with backend (Pure function, no state side effects)
+export const syncUserWithBackend = async (user: User, additionalData?: { username?: string; display_name?: string; avatar_url?: string }) => {
     let role = 'USER'; // Default
     const username = additionalData?.username || user.email?.split('@')[0] || 'user' + user.uid.slice(0, 5);
     const avatar_url = additionalData?.avatar_url || user.photoURL;
@@ -174,20 +184,20 @@ export const syncUserWithBackend = async (user: User, set: any, additionalData?:
             role = data.role;
         }
 
-        // Save to local storage for API usage
-        localStorage.setItem('west-wind-user', JSON.stringify({ ...user, role }));
-
-    } catch (apiError) {
-        console.error('Failed to sync user with backend:', apiError);
-    }
-
-    set({
-        user: {
+        const appUser = {
             ...user,
             role: role as any,
             username: username,
             avatar_url: avatar_url
-        },
-        loading: false
-    });
+        };
+
+        // Save to local storage for API usage
+        localStorage.setItem('west-wind-user', JSON.stringify(appUser));
+
+        return appUser;
+
+    } catch (apiError) {
+        console.error('Failed to sync user with backend:', apiError);
+        throw apiError;
+    }
 };

@@ -40,7 +40,7 @@ export const ComposerModal = ({ isOpen, onClose }: ComposerModalProps) => {
             />
 
             {/* Modal Content */}
-            <div className="relative w-full max-w-xl bg-bg border-2 border-modal-border rounded-2xl shadow-xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+            <div className="relative w-full max-w-xl bg-background border-2 border-modal-border rounded-2xl shadow-xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
                 <div className="flex items-center justify-between px-4 py-3 border-b border-border">
                     <button
                         onClick={handleClose}

@@ -2,9 +2,7 @@ import { useMutation, useQueryClient, type InfiniteData } from '@tanstack/react-
 import { createPost } from '../api/posts';
 import type { Post } from '../api/posts';
 import { useAuthStore } from '../../auth/stores/authStore';
-import axios from 'axios';
-
-const API_URL = 'http://localhost:3000/api';
+import { api } from '@/lib/api-client';
 
 export const useCreatePost = () => {
     const queryClient = useQueryClient();
@@ -20,7 +18,7 @@ export const useCreatePost = () => {
                 const uploadPromises = images.map(async (file) => {
                     const formData = new FormData();
                     formData.append('file', file);
-                    const response = await axios.post(`${API_URL}/upload`, formData, {
+                    const response = await api.post<{ url: string }>(`/upload`, formData, {
                         headers: { 'Content-Type': 'multipart/form-data' }
                     });
                     return response.data.url;
