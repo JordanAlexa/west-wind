@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, forwardRef, useImperativeHandle } from 'react';
 import { useCreatePost } from '../../feed/hooks/useCreatePost';
+import { useAuthStore } from '../../auth/stores/authStore';
 import { Image, X, Globe, Smile, Film } from 'lucide-react';
 import { GifSearch } from './GifSearch';
 import { InteractionSettings, type InteractionSetting } from './InteractionSettings';
@@ -42,6 +43,9 @@ export const Composer = forwardRef<ComposerHandle, ComposerProps>(({ onSuccess, 
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     const { mutate: createPostMutation, isPending } = useCreatePost();
+    const { user } = useAuthStore();
+
+    const avatarUrl = user?.avatar_url || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.username || 'Guest'}`;
 
     const isDirty = text.trim().length > 0 || images.length > 0 || selectedGif !== null;
 
@@ -153,9 +157,9 @@ export const Composer = forwardRef<ComposerHandle, ComposerProps>(({ onSuccess, 
             <div className="flex gap-3 mt-10 md:mt-0">
                 <div className="w-10 h-10 rounded-full bg-gray-200 flex-shrink-0">
                     <img
-                        src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix"
+                        src={avatarUrl}
                         alt="Avatar"
-                        className="w-full h-full rounded-full"
+                        className="w-full h-full rounded-full object-cover"
                     />
                 </div>
                 <div className="flex-grow">

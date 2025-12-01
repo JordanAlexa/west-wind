@@ -1,37 +1,23 @@
-import axios from 'axios';
-
-const API_URL = 'http://localhost:3000/api';
+import { api } from '@/lib/api-client';
 
 export interface UpdateProfileData {
-    display_name: string;
-    bio: string;
+    username?: string;
+    display_name?: string;
+    bio?: string;
     avatar_url?: string;
     banner_url?: string;
-}
-
-export interface User {
-    id: string;
-    firebase_uid: string;
-    name: string;
-    handle: string;
-    avatar?: string;
-    banner?: string;
-    bio?: string;
-    followersCount: number;
-    followsCount: number;
-    postsCount: number;
+    postsCount?: number;
+    isFollowedByViewer?: boolean;
 }
 
 export const updateProfile = async (firebaseUid: string, data: UpdateProfileData) => {
-    const response = await axios.put(`${API_URL}/users/${firebaseUid}`, data);
-    return response.data;
+    return api.put(`/users/${firebaseUid}`, data) as Promise<any>;
 };
 
 export const getUser = async (handle: string) => {
     // Handle can be passed with or without @
     const cleanHandle = handle.startsWith('@') ? handle : handle;
-    const response = await axios.get(`${API_URL}/users/${cleanHandle}`);
-    const userData = response.data;
+    const userData = await api.get<any>(`/users/${cleanHandle}`) as any;
 
     // Transform backend data to frontend User interface
     return {
@@ -44,16 +30,34 @@ export const getUser = async (handle: string) => {
         bio: userData.bio,
         followersCount: userData.followersCount || 0,
         followsCount: userData.followsCount || 0,
-        postsCount: userData.postsCount || 0
+        postsCount: userData.postsCount || 0,
+        isFollowedByViewer: userData.is_followed_by_viewer
     };
 };
-export const syncUser = async (user: { uid: string; email: string | null; displayName: string | null; photoURL: string | null }) => {
-    const response = await axios.post(`${API_URL}/users`, {
+
+export const syncUser = async (user: { uid: string; email: string | null; displayName: string | null; photoURL: string | null; emailVerified: boolean }) => {
+    return api.post('/users', {
         firebase_uid: user.uid,
         email: user.email,
         username: user.email?.split('@')[0] || 'user', // Fallback username
         display_name: user.displayName || 'User',
-        avatar_url: user.photoURL || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.uid}`
+        avatar_url: user.photoURL || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.uid}`,
+        email_verified: user.emailVerified
+    }) as Promise<{ role: string }>;
+};
+
+export const getCurrentUser = async (config?: { skipErrorToast?: boolean }) => {
+    return api.get<any>('/users/me', config as any) as unknown as Promise<any>;
+};
+
+export const followUser = async (targetUserId: string) => {
+    const user = JSON.parse(localStorage.getItem('west-wind-user') || '{}');
+    return api.post(`/users/${targetUserId}/follow`, { firebase_uid: user.uid });
+};
+
+export const unfollowUser = async (targetUserId: string) => {
+    const user = JSON.parse(localStorage.getItem('west-wind-user') || '{}');
+    return api.delete(`/users/${targetUserId}/follow`, {
+        data: { firebase_uid: user.uid }
     });
-    return response.data;
 };

@@ -1,0 +1,514 @@
+﻿
+[1m[46m RUN [49m[22m [36mv4.0.14 [39m[90mC:/Users/Jordan/.gemini/antigravity/scratch/west-wind[39m
+
+ [31m├ù[39m src/features/auth/components/__tests__/Register.test.tsx[2m > [22mRegister Component[2m > [22mrenders registration form correctly[32m 60[2mms[22m[39m
+[31m   ÔåÆ Found a label with the text of: /email/i, however the element associated with this label (<div />) is non-labellable [https://html.spec.whatwg.org/multipage/forms.html#category-label]. If you really need to label a <div />, you can use aria-label or aria-labelledby instead.
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mclass[31m=[32m"min-h-screen bg-white flex flex-col md:flex-row font-sans text-gray-900"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"hidden md:flex md:w-1/3 bg-gray-50 items-center justify-end p-12"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"max-w-md text-right"[31m
+        [36m>[31m
+          [36m<h1[31m
+            [33mclass[31m=[32m"text-4xl font-bold text-blue-600 mb-4"[31m
+          [36m>[31m
+            [0mCreate an Account[0m
+          [36m</h1>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text-xl text-gray-600"[31m
+          [36m>[31m
+            [0mWe're so excited to have you join us![0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"w-full md:w-2/3 flex items-center justify-start p-6 md:p-12"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"w-full max-w-md bg-white h-full md:h-auto flex flex-col"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"mb-8"[31m
+          [36m>[31m
+            [36m<div[31m
+              [33maria-label[31m=[32m"Registration Progress"[31m
+              [33mclass[31m=[32m"relative w-full"[31m
+            [36m>[31m
+              [36m<ol[31m
+                [33mclass[31m=[32m"flex items-center justify-between w-full relative z-10"[31m
+              [36m>[31m
+                [36m<li[31m
+                  [33maria-current[31m=[32m"step"[31m
+                  [33mclass[31m=[32m"flex flex-col items-center"[31m
+                [36m>[31m
+                  [36m<div[31m
+                    [33manimate[31m=[32m"[object Object]"[31m
+                    [33mclass[31m=[32m"w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-colors duration-300 text-white"[31m
+                  [36m>[31m
+                    [36m<span>[31m
+                      [0m1[0m
+                    [36m</span>[31m
+                  [36m</div>[31m
+                  [36m<span[31m
+                    [33mclass[31m=[32m"text-xs mt-2 font-medium transition-colors duration-300 absolute top-8 w-32 text-center text-blue-600"[31m
+                  [36m>[31m
+                    [0mCredentials[0m
+                  [36m</span>[31m
+                [36m</li>[31m
+                [36m<li[31m
+                  [33mclass[31m=[32m"flex flex-col items-center"[31m
+                [36m>[31m
+                  [36m<div[31m
+                    [33manimate[31m=[32m"[object Object]"[31m
+                    [33mclass[31m=[32m"w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-colors duration-300 text-gray-500"[31m
+                  [36m>[31m
+                    [36m<span>[31m
+                      [0m2[0m
+                    [36m</span>[31m
+                  [36m</div>[31m
+                  [36m<span[31m
+                    [33mclass[31m=[32m"text-xs mt-2 font-medium transition-colors duration-300 absolute top-8 w-32 text-center text-gray-400"[31m
+                  [36m>[31m
+                    [0mPersonal Info[0m
+                  [36m</span>[31m
+                [36m</li>[31m
+                [36m<li[31m
+                  [33mclass[31m=[32m"flex flex-col items-center"[31m
+                [36m>[31m
+                  [36m<div[31m
+                    [33manimate[31m=[32m"[object Object]"[31m
+                    [33mclass[31m=[32m"w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-colors duration-300 text-gray-500"[31m
+                  [36m>[31m
+                    [36m<span>[31m
+                      [0m3[0m
+                    [36m</span>[31m
+                  [36m</div>[31m
+                  [36m<span[31m
+                    [33mclass[31m=[32m"text-xs mt-2 font-medium transition-colors duration-300 absolute top-8 w-32 text-center text-gray-400"[31m
+                  [36m>[31m
+                    [0mReview[0m
+                  [36m</span>[31m
+                [36m</li>[31m
+              [36m</ol>[31m
+              [36m<div[31m
+                [33maria-hidden[31m=[32m"true"[31m
+                [33mclass[31m=[32m"absolute top-4 left-0 w-full h-[2px] bg-gray-200 -z-0"[31m
+              [36m/>[31m
+              [36m<div[31m
+                [33manimate[31m=[32m"[object Object]"[31m
+                [33maria-hidden[31m=[32m"true"[31m
+                [33mclass[31m=[32m"absolute top-4 left-0 h-[2px] bg-blue-600 -z-0"[31m
+                [33minitial[31m=[32m"[object Object]"[31m
+                [33mtransition[31m=[32m"[object Object]"[31m
+              [36m/>[31m
+            [36m</div>[31m
+          [36m</div>[31m
+          [36m<h1[31m
+            [33mclass[31m=[32m"text-3xl font-bold text-black mb-2"[31m
+          [36m>[31m
+            [0mCredentials[0m
+          [36m</h1>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"text-gray-600 mb-6 text-sm"[31m
+          [36m>[31m
+            [0mStep [0m
+            [0m1[0m
+            [0m of [0m
+            [0m3[0m
+          [36m</div>[31m
+          [36m<form[31m
+            [33mclass[31m=[32m"flex-grow flex flex-col relative overflow-hidden"[31m
+          [36m>[31m
+            [36m<div[31m
+              [33manimate[31m=[32m"center"[31m
+              [33mclass[31m=[32m"space-y-4 flex-grow"[31m
+              [33mcustom[31m=[32m"0"[31m
+              [33mexit[31m=[32m"exit"[31m
+              [33minitial[31m=[32m"enter"[31m
+              [33mtransition[31m=[32m"[object Object]"[31m
+              [33mvariants[31m=[32m"[object Object]"[31m
+            [36m>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"space-y-2"[31m
+              [36m>[31m
+                [36m<label[31m
+                  [33mclass[31m=[32m"text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"[31m
+                  [33mfor[31m=[32m"_r_0_-form-item"[31m
+                [36m>[31m
+                  [0mEmail[0m
+                [36m</label>[31m
+                [36m<div[31m
+                  [33manimate[31m=[32m"idle"[31m
+                  [33maria-describedby[31m=[32m"_r_0_-form-item-description"[31m
+                  [33maria-invalid[31m=[32m"false"[31m
+                  [33mid[31m=[32m"_r_0_-form-item"[31m
+                  [33mvariants[31m=[32m"[object Object]"[31m
+                [36m>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"relative"[31m
+                  [36m>[31m
+                    [36m<input[31m
+                      [33mclass[31m=[32m"flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"[31m
+                      [33mname[31m=[32m"email"[31m
+                      [33mplaceholder[31m=[32m"Enter your email address"[31m
+                      [33mvalue[31m=[32m""[31m
+                    [36m/>[31m
+                  [36m</div>[31m
+                [36m</div>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"h-4"[31m
+              [36m/>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"relative my-6"[31m
+              [36m>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"absolute inset-0 flex items-center"[31m
+                [36m>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"w-full border-t border-gray-200"[31m
+                  [36m/>[31m
+                [36m</div>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"relative flex justify-center text-sm"[31m
+                [36m>[31m
+                  [36m<span[31m
+                    [33mclass[31m=[32m"px-2 bg-white text-gray-500"[31m
+                  [36m>[31m
+                    [0mor continue with[0m
+                  [36m</span>[31m
+                [36m</div>[31m
+              [36m</div>[31m
+              [36m<button[31m
+                [33mclass[31m=[32m"inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-full gap-2"[31m
+                [33mtype[31m=[32m"button"[31m
+              [36m>[31m
+                [36m<svg[31m
+                  [33mclass[31m=[32m"w-5 h-5"[31m
+                  [33mviewBox[31m=[32m"0 0 24 24"[31m
+                [36m>[31m
+                  [36m<path[31m
+                    [33md[31m=[32m"M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"[31m
+                    [33mfill[31m=[32m"#4285F4"[31m
+                  [36m/>[31m
+                  [36m<path[31m
+                    [33md[31m=[32m"M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"[31m
+                    [33mfill[31m=[32m"#34A853"[31m
+                  [36m/>[31m
+                  [36m<path[31m
+                    [33md[31m=[32m"M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"[31m
+                    [33mfill[31m=[32m"#FBBC05"[31m
+                  [36m/>[31m
+                  [36m<path[31m
+                    [33md[31m=[32m"M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"[31m
+                    [33mfill[31m=[32m"#EA4335"[31m
+                  [36m/>[31m
+                [36m</svg>[31m
+                [0mGoogle[0m
+              [36m</button>[31m
+            [36m</div>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"flex items-center justify-between mt-8 pt-4 border-t border-gray-100"[31m
+            [36m>[31m
+              [36m<button[31m
+                [33mclass[31m=[32m"inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 py-2 rounded-full px-6"[31m
+                [33mtype[31m=[32m"button"[31m
+              [36m>[31m
+                [0mCancel[0m
+              [36m</button>[31m
+              [36m<button[31m
+                [33mclass[31m=[32m"inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 py-2 rounded-full px-6 bg-blue-600 hover:bg-blue-700 text-white gap-2"[31m
+                [33mtype[31m=[32m"button"[31m
+              [36m>[31m
+                [0mNext [0m
+                [36m<svg[31m
+                  [33maria-hidden[31m=[32m"true"[31m
+                  [33mclass[31m=[32m"lucide lucide-chevron-right w-4 h-4"[31m
+                  [33mfill[31m=[32m"none"[31m
+                  [33mheight[31m=[32m"24"[31m
+                  [33mstroke[31m=[32m"currentColor"[31m
+                  [33mstroke-linecap[31m=[32m"round"[31m
+                  [33mstroke-linejoin[31m=[32m"round"[31m
+                  [33mstroke-width[31m=[32m"2"[31m
+                  [33mviewBox[31m=[32m"0 0 24 24"[31m
+                  [33mwidth[31m=[32m"24"[31m
+                  [33mxmlns[31m=[32m"http://www.w3.org/2000/svg"[31m
+                [36m>[31m
+                  [36m<path[31m
+                    [33md[31m=[32m"m9 18 6-6-6-6"[31m
+                  [36m/>[31m
+                [36m</svg>[31m
+              [36m</button>[31m
+            [36m</div>[31m
+          [36m</form>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m[39m
+ [32mÔ£ô[39m src/features/auth/components/__tests__/Register.test.tsx[2m > [22mRegister Component[2m > [22mvalidates required fields[32m 176[2mms[22m[39m
+ [31m├ù[39m src/features/auth/components/__tests__/Register.test.tsx[2m > [22mRegister Component[2m > [22msubmits form with valid data[32m 9[2mms[22m[39m
+[31m   ÔåÆ Found a label with the text of: /email/i, however the element associated with this label (<div />) is non-labellable [https://html.spec.whatwg.org/multipage/forms.html#category-label]. If you really need to label a <div />, you can use aria-label or aria-labelledby instead.
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mclass[31m=[32m"min-h-screen bg-white flex flex-col md:flex-row font-sans text-gray-900"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"hidden md:flex md:w-1/3 bg-gray-50 items-center justify-end p-12"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"max-w-md text-right"[31m
+        [36m>[31m
+          [36m<h1[31m
+            [33mclass[31m=[32m"text-4xl font-bold text-blue-600 mb-4"[31m
+          [36m>[31m
+            [0mCreate an Account[0m
+          [36m</h1>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text-xl text-gray-600"[31m
+          [36m>[31m
+            [0mWe're so excited to have you join us![0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"w-full md:w-2/3 flex items-center justify-start p-6 md:p-12"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"w-full max-w-md bg-white h-full md:h-auto flex flex-col"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"mb-8"[31m
+          [36m>[31m
+            [36m<div[31m
+              [33maria-label[31m=[32m"Registration Progress"[31m
+              [33mclass[31m=[32m"relative w-full"[31m
+            [36m>[31m
+              [36m<ol[31m
+                [33mclass[31m=[32m"flex items-center justify-between w-full relative z-10"[31m
+              [36m>[31m
+                [36m<li[31m
+                  [33maria-current[31m=[32m"step"[31m
+                  [33mclass[31m=[32m"flex flex-col items-center"[31m
+                [36m>[31m
+                  [36m<div[31m
+                    [33manimate[31m=[32m"[object Object]"[31m
+                    [33mclass[31m=[32m"w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-colors duration-300 text-white"[31m
+                  [36m>[31m
+                    [36m<span>[31m
+                      [0m1[0m
+                    [36m</span>[31m
+                  [36m</div>[31m
+                  [36m<span[31m
+                    [33mclass[31m=[32m"text-xs mt-2 font-medium transition-colors duration-300 absolute top-8 w-32 text-center text-blue-600"[31m
+                  [36m>[31m
+                    [0mCredentials[0m
+                  [36m</span>[31m
+                [36m</li>[31m
+                [36m<li[31m
+                  [33mclass[31m=[32m"flex flex-col items-center"[31m
+                [36m>[31m
+                  [36m<div[31m
+                    [33manimate[31m=[32m"[object Object]"[31m
+                    [33mclass[31m=[32m"w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-colors duration-300 text-gray-500"[31m
+                  [36m>[31m
+                    [36m<span>[31m
+                      [0m2[0m
+                    [36m</span>[31m
+                  [36m</div>[31m
+                  [36m<span[31m
+                    [33mclass[31m=[32m"text-xs mt-2 font-medium transition-colors duration-300 absolute top-8 w-32 text-center text-gray-400"[31m
+                  [36m>[31m
+                    [0mPersonal Info[0m
+                  [36m</span>[31m
+                [36m</li>[31m
+                [36m<li[31m
+                  [33mclass[31m=[32m"flex flex-col items-center"[31m
+                [36m>[31m
+                  [36m<div[31m
+                    [33manimate[31m=[32m"[object Object]"[31m
+                    [33mclass[31m=[32m"w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-colors duration-300 text-gray-500"[31m
+                  [36m>[31m
+                    [36m<span>[31m
+                      [0m3[0m
+                    [36m</span>[31m
+                  [36m</div>[31m
+                  [36m<span[31m
+                    [33mclass[31m=[32m"text-xs mt-2 font-medium transition-colors duration-300 absolute top-8 w-32 text-center text-gray-400"[31m
+                  [36m>[31m
+                    [0mReview[0m
+                  [36m</span>[31m
+                [36m</li>[31m
+              [36m</ol>[31m
+              [36m<div[31m
+                [33maria-hidden[31m=[32m"true"[31m
+                [33mclass[31m=[32m"absolute top-4 left-0 w-full h-[2px] bg-gray-200 -z-0"[31m
+              [36m/>[31m
+              [36m<div[31m
+                [33manimate[31m=[32m"[object Object]"[31m
+                [33maria-hidden[31m=[32m"true"[31m
+                [33mclass[31m=[32m"absolute top-4 left-0 h-[2px] bg-blue-600 -z-0"[31m
+                [33minitial[31m=[32m"[object Object]"[31m
+                [33mtransition[31m=[32m"[object Object]"[31m
+              [36m/>[31m
+            [36m</div>[31m
+          [36m</div>[31m
+          [36m<h1[31m
+            [33mclass[31m=[32m"text-3xl font-bold text-black mb-2"[31m
+          [36m>[31m
+            [0mCredentials[0m
+          [36m</h1>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"text-gray-600 mb-6 text-sm"[31m
+          [36m>[31m
+            [0mStep [0m
+            [0m1[0m
+            [0m of [0m
+            [0m3[0m
+          [36m</div>[31m
+          [36m<form[31m
+            [33mclass[31m=[32m"flex-grow flex flex-col relative overflow-hidden"[31m
+          [36m>[31m
+            [36m<div[31m
+              [33manimate[31m=[32m"center"[31m
+              [33mclass[31m=[32m"space-y-4 flex-grow"[31m
+              [33mcustom[31m=[32m"0"[31m
+              [33mexit[31m=[32m"exit"[31m
+              [33minitial[31m=[32m"enter"[31m
+              [33mtransition[31m=[32m"[object Object]"[31m
+              [33mvariants[31m=[32m"[object Object]"[31m
+            [36m>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"space-y-2"[31m
+              [36m>[31m
+                [36m<label[31m
+                  [33mclass[31m=[32m"text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"[31m
+                  [33mfor[31m=[32m"_r_2_-form-item"[31m
+                [36m>[31m
+                  [0mEmail[0m
+                [36m</label>[31m
+                [36m<div[31m
+                  [33manimate[31m=[32m"idle"[31m
+                  [33maria-describedby[31m=[32m"_r_2_-form-item-description"[31m
+                  [33maria-invalid[31m=[32m"false"[31m
+                  [33mid[31m=[32m"_r_2_-form-item"[31m
+                  [33mvariants[31m=[32m"[object Object]"[31m
+                [36m>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"relative"[31m
+                  [36m>[31m
+                    [36m<input[31m
+                      [33mclass[31m=[32m"flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"[31m
+                      [33mname[31m=[32m"email"[31m
+                      [33mplaceholder[31m=[32m"Enter your email address"[31m
+                      [33mvalue[31m=[32m""[31m
+                    [36m/>[31m
+                  [36m</div>[31m
+                [36m</div>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"h-4"[31m
+              [36m/>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"relative my-6"[31m
+              [36m>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"absolute inset-0 flex items-center"[31m
+                [36m>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"w-full border-t border-gray-200"[31m
+                  [36m/>[31m
+                [36m</div>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"relative flex justify-center text-sm"[31m
+                [36m>[31m
+                  [36m<span[31m
+                    [33mclass[31m=[32m"px-2 bg-white text-gray-500"[31m
+                  [36m>[31m
+                    [0mor continue with[0m
+                  [36m</span>[31m
+                [36m</div>[31m
+              [36m</div>[31m
+              [36m<button[31m
+                [33mclass[31m=[32m"inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-full gap-2"[31m
+                [33mtype[31m=[32m"button"[31m
+              [36m>[31m
+                [36m<svg[31m
+                  [33mclass[31m=[32m"w-5 h-5"[31m
+                  [33mviewBox[31m=[32m"0 0 24 24"[31m
+                [36m>[31m
+                  [36m<path[31m
+                    [33md[31m=[32m"M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"[31m
+                    [33mfill[31m=[32m"#4285F4"[31m
+                  [36m/>[31m
+                  [36m<path[31m
+                    [33md[31m=[32m"M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"[31m
+                    [33mfill[31m=[32m"#34A853"[31m
+                  [36m/>[31m
+                  [36m<path[31m
+                    [33md[31m=[32m"M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"[31m
+                    [33mfill[31m=[32m"#FBBC05"[31m
+                  [36m/>[31m
+                  [36m<path[31m
+                    [33md[31m=[32m"M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"[31m
+                    [33mfill[31m=[32m"#EA4335"[31m
+                  [36m/>[31m
+                [36m</svg>[31m
+                [0mGoogle[0m
+              [36m</button>[31m
+            [36m</div>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"flex items-center justify-between mt-8 pt-4 border-t border-gray-100"[31m
+            [36m>[31m
+              [36m<button[31m
+                [33mclass[31m=[32m"inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 py-2 rounded-full px-6"[31m
+                [33mtype[31m=[32m"button"[31m
+              [36m>[31m
+                [0mCancel[0m
+              [36m</button>[31m
+              [36m<button[31m
+                [33mclass[31m=[32m"inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 py-2 rounded-full px-6 bg-blue-600 hover:bg-blue-700 text-white gap-2"[31m
+                [33mtype[31m=[32m"button"[31m
+              [36m>[31m
+                [0mNext [0m
+                [36m<svg[31m
+                  [33maria-hidden[31m=[32m"true"[31m
+                  [33mclass[31m=[32m"lucide lucide-chevron-right w-4 h-4"[31m
+                  [33mfill[31m=[32m"none"[31m
+                  [33mheight[31m=[32m"24"[31m
+                  [33mstroke[31m=[32m"currentColor"[31m
+                  [33mstroke-linecap[31m=[32m"round"[31m
+                  [33mstroke-linejoin[31m=[32m"round"[31m
+                  [33mstroke-width[31m=[32m"2"[31m
+                  [33mviewBox[31m=[32m"0 0 24 24"[31m
+                  [33mwidth[31m=[32m"24"[31m
+                  [33mxmlns[31m=[32m"http://www.w3.org/2000/svg"[31m
+                [36m>[31m
+                  [36m<path[31m
+                    [33md[31m=[32m"m9 18 6-6-6-6"[31m
+                  [36m/>[31m
+                [36m</svg>[31m
+              [36m</button>[31m
+            [36m</div>[31m
+          [36m</form>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m[39m
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m2 failed[39m[22m[2m | [22m[1m[32m1 passed[39m[22m[90m (3)[39m
+[2m   Start at [22m 12:02:13
+[2m   Duration [22m 1.39s[2m (transform 123ms, setup 140ms, import 334ms, tests 247ms, environment 507ms)[22m
+

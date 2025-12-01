@@ -1,6 +1,4 @@
-import axios from 'axios';
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+import { api } from '@/lib/api-client';
 
 export interface Notification {
     type: 'like' | 'reply' | 'mention' | 'follow';
@@ -26,30 +24,29 @@ export const getNotifications = async ({ type }: { type?: 'mentions' } = {}): Pr
     const user = JSON.parse(localStorage.getItem('west-wind-user') || '{}');
     if (!user.uid) throw new Error('User not authenticated');
 
-    const response = await axios.get(`${API_URL}/notifications`, {
+    return api.get<any>('/notifications', {
         params: {
             firebase_uid: user.uid,
             type
         }
-    });
-    return response.data;
+    }) as unknown as Promise<Notification[]>;
 };
 
 export const getUnreadCount = async (): Promise<number> => {
     const user = JSON.parse(localStorage.getItem('west-wind-user') || '{}');
     if (!user.uid) return 0;
 
-    const response = await axios.get(`${API_URL}/notifications/unread-count`, {
+    const data = await api.get<any>('/notifications/unread-count', {
         params: { firebase_uid: user.uid }
-    });
-    return response.data.count;
+    }) as any;
+    return data.count;
 };
 
 export const markNotificationsRead = async (): Promise<void> => {
     const user = JSON.parse(localStorage.getItem('west-wind-user') || '{}');
     if (!user.uid) return;
 
-    await axios.post(`${API_URL}/notifications/mark-read`, {
+    await api.post('/notifications/mark-read', {
         firebase_uid: user.uid
     });
 };

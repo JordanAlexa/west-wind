@@ -1,6 +1,4 @@
-import axios from 'axios';
-
-const API_URL = 'http://localhost:3000/api';
+import { api } from '@/lib/api-client';
 
 export interface Post {
     id: string;
@@ -45,8 +43,7 @@ export async function fetchPosts({ pageParam = 0, queryKey }: { pageParam?: numb
     if (tab) params.tab = tab;
     if (user.uid) params.firebase_uid = user.uid;
 
-    const response = await axios.get(`${API_URL}/posts`, { params });
-    const data = response.data;
+    const data = await api.get<any>('/posts', { params }) as any;
 
     return {
         posts: data.posts.map((p: any) => ({
@@ -64,8 +61,7 @@ export async function fetchPosts({ pageParam = 0, queryKey }: { pageParam?: numb
 }
 
 export async function fetchPostThread(postId: string) {
-    const response = await axios.get(`${API_URL}/posts/${postId}/thread`);
-    const data = response.data;
+    const data = await api.get<any>(`/posts/${postId}/thread`) as any;
 
     // Helper to map backend post to frontend Post type
     const mapPost = (p: any): Post => ({
@@ -89,42 +85,44 @@ export async function fetchPostThread(postId: string) {
 export async function createPost(content: string, mediaUrl?: string, parentId?: string) {
     const user = JSON.parse(localStorage.getItem('west-wind-user') || '{}');
 
-    const response = await axios.post(`${API_URL}/posts`, {
+    return api.post('/posts', {
         firebase_uid: user.uid,
         content,
         media_url: mediaUrl,
         parent_id: parentId
     });
-
-    return response.data;
 }
 
 export async function toggleLike(postId: string, isLiked: boolean) {
     const user = JSON.parse(localStorage.getItem('west-wind-user') || '{}');
-    const method = isLiked ? 'DELETE' : 'POST';
+    const method = isLiked ? 'delete' : 'post';
 
-    const response = await axios({
-        method,
-        url: `${API_URL}/likes`,
-        data: {
+    // api.delete requires data in config
+    if (method === 'delete') {
+        return api.delete('/likes', {
+            data: {
+                firebase_uid: user.uid,
+                post_id: postId
+            }
+        });
+    } else {
+        return api.post('/likes', {
             firebase_uid: user.uid,
             post_id: postId
-        }
-    });
-
-    return response.data;
+        });
+    }
 }
 
 export async function deletePost(postId: string) {
     const user = JSON.parse(localStorage.getItem('west-wind-user') || '{}');
-    await axios.delete(`${API_URL}/posts/${postId}`, {
+    await api.delete(`/posts/${postId}`, {
         data: { firebase_uid: user.uid }
     });
 }
 
 export async function editPost(postId: string, content: string) {
     const user = JSON.parse(localStorage.getItem('west-wind-user') || '{}');
-    await axios.put(`${API_URL}/posts/${postId}`, {
+    await api.put(`/posts/${postId}`, {
         firebase_uid: user.uid,
         content
     });

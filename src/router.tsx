@@ -92,6 +92,14 @@ const postRedirectRoute = createRoute({
     },
 })
 
+import { FinishSignUp } from './pages/FinishSignUp';
+
+const finishSignUpRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: '/finishSignUp',
+    component: FinishSignUp,
+})
+
 // Create the route tree
 const routeTree = rootRoute.addChildren([
     indexRoute,
@@ -103,6 +111,7 @@ const routeTree = rootRoute.addChildren([
     settingsRoute,
     notificationsRoute,
     postRedirectRoute,
+    finishSignUpRoute,
 ])
 
 // Create the router instance

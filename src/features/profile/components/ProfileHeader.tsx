@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useAuthStore } from '../../auth/stores/authStore';
 import { EditProfileModal } from './EditProfileModal';
 import { type User } from '../../profile/api/users';
+import { useFollow } from '../hooks/useFollow';
 
 interface ProfileHeaderProps {
     user: User;
@@ -55,9 +56,7 @@ export const ProfileHeader = ({ user }: ProfileHeaderProps) => {
                             Edit Profile
                         </button>
                     ) : (
-                        <button className="bg-primary text-white px-4 py-1.5 rounded-full text-sm font-bold hover:opacity-90 transition-colors mt-12 sm:mt-0">
-                            Follow
-                        </button>
+                        <FollowButton user={user} />
                     )}
                 </div>
 
@@ -106,5 +105,28 @@ export const ProfileHeader = ({ user }: ProfileHeaderProps) => {
                 />
             )}
         </div>
+    );
+};
+
+const FollowButton = ({ user }: { user: User }) => {
+    const { toggleFollow, isPending } = useFollow(user);
+    const isFollowing = user.isFollowedByViewer;
+
+    return (
+        <button
+            onClick={() => toggleFollow()}
+            disabled={isPending}
+            className={`px-4 py-1.5 rounded-full text-sm font-bold transition-colors mt-12 sm:mt-0 ${isFollowing
+                ? 'bg-surface border border-border text-text hover:bg-red-50 hover:text-red-600 hover:border-red-200 group'
+                : 'bg-primary text-white hover:opacity-90'
+                }`}
+        >
+            <span className={isFollowing ? 'group-hover:hidden' : ''}>
+                {isFollowing ? 'Following' : 'Follow'}
+            </span>
+            {isFollowing && (
+                <span className="hidden group-hover:inline">Unfollow</span>
+            )}
+        </button>
     );
 };

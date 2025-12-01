@@ -30,3 +30,7 @@ dist-ssr
 .env.test.local
 .env.production.local
 *.pem
+
+# Ingestion and Analysis
+ingested_repos
+analysis_temp

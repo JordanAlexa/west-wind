@@ -80,7 +80,10 @@ export const Layout = ({ children, onNewPost }: LayoutProps) => {
 
                     <div className="mt-auto">
                         <button
-                            onClick={() => signOut()}
+                            onClick={async () => {
+                                await signOut();
+                                window.location.href = '/'; // Force reload/redirect
+                            }}
                             className="flex items-center gap-4 p-3 w-full rounded-full hover:bg-surface-hover transition-colors"
                         >
                             <LogOut className="w-7 h-7" />

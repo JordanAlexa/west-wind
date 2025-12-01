@@ -2,13 +2,16 @@ import { z } from 'zod';
 
 export const RegisterSchema = z.object({
     email: z.string().email('Invalid email address'),
-    password: z.string().min(8, 'Password must be at least 8 characters'),
+    // password: z.string().min(8, 'Password must be at least 8 characters'), // Removed for passwordless auth
+    username: z.string().min(3, 'Username must be at least 3 characters').regex(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores'),
+    display_name: z.string().min(1, 'Display name is required'),
     dob: z.string().refine((val) => {
         const date = new Date(val);
         const now = new Date();
         const age = now.getFullYear() - date.getFullYear();
         return age >= 13;
     }, 'You must be at least 13 years old'),
+    terms: z.boolean().refine((val) => val === true, 'You must accept the terms and conditions'),
 });
 
 export const ProfileSchema = z.object({

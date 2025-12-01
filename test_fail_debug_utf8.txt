@@ -1,0 +1,13 @@
+﻿
+[1m[46m RUN [49m[22m [36mv4.0.14 [39m[90mC:/Users/Jordan/.gemini/antigravity/scratch/west-wind[39m
+
+ [31mÔØ»[39m src/features/auth/components/__tests__/Register.test.tsx [2m([22m[2m3 tests[22m[2m | [22m[31m2 failed[39m[2m)[22m[32m 289[2mms[22m[39m
+[31m     [31m├ù[31m renders registration form correctly[39m[32m 76[2mms[22m[39m
+     [32mÔ£ô[39m validates required fields[32m 199[2mms[22m[39m
+[31m     [31m├ù[31m submits form with valid data[39m[32m 13[2mms[22m[39m
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m2 failed[39m[22m[2m | [22m[1m[32m1 passed[39m[22m[90m (3)[39m
+[2m   Start at [22m 12:01:53
+[2m   Duration [22m 1.72s[2m (transform 147ms, setup 138ms, import 395ms, tests 289ms, environment 483ms)[22m
+
