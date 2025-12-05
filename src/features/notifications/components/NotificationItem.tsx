@@ -85,8 +85,8 @@ export const NotificationItem: React.FC<NotificationItemProps> = ({ notification
 
                 {post && (
                     <Link
-                        to="/post/$id"
-                        params={{ id: post.id }}
+                        to="/profile/$handle/post/$rkey"
+                        params={{ handle: actor.handle, rkey: post.id }}
                         className="block mt-1 text-gray-600 text-sm line-clamp-2"
                     >
                         {post.content}
@@ -95,8 +95,8 @@ export const NotificationItem: React.FC<NotificationItemProps> = ({ notification
 
                 {reply && (
                     <Link
-                        to="/post/$id"
-                        params={{ id: post?.id || '' }}
+                        to="/profile/$handle/post/$rkey"
+                        params={{ handle: actor.handle, rkey: post?.id || '' }}
                         className="block mt-2 text-gray-800 text-sm"
                     >
                         {reply.content}

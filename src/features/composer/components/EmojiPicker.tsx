@@ -1,10 +1,19 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import data from '@emoji-mart/data';
 import Picker from '@emoji-mart/react';
 
+export interface EmojiData {
+    id: string;
+    name: string;
+    native: string;
+    unified: string;
+    keywords: string[];
+    shortcodes: string;
+}
+
 interface EmojiPickerProps {
-    onSelect: (emoji: any) => void;
+    onSelect: (emoji: EmojiData) => void;
     onClose: () => void;
     triggerRef: React.RefObject<HTMLElement | null>;
 }
@@ -13,7 +22,7 @@ export const EmojiPicker: React.FC<EmojiPickerProps> = ({ onSelect, onClose, tri
     const pickerRef = useRef<HTMLDivElement>(null);
     const [position, setPosition] = useState<{ top: number; left: number }>({ top: 0, left: 0 });
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (triggerRef.current) {
             const rect = triggerRef.current.getBoundingClientRect();
             const pickerHeight = 435; // Approx height of emoji picker
@@ -37,8 +46,11 @@ export const EmojiPicker: React.FC<EmojiPickerProps> = ({ onSelect, onClose, tri
                 left = 10;
             }
 
-            setPosition({ top, left });
+            if (position.top !== top || position.left !== left) {
+                setPosition({ top, left });
+            }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [triggerRef]);
 
     useEffect(() => {

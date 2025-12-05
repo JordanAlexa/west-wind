@@ -63,7 +63,7 @@ export const Layout = ({ children, onNewPost }: LayoutProps) => {
                             icon={User}
                             label="Profile"
                             to="/profile/$handle"
-                            params={{ handle: user?.email ? `@${user.email.split('@')[0]}` : 'me' }}
+                            params={{ handle: user?.username || (user?.email ? `${user.email.split('@')[0]}` : 'me') }}
                             active={location.pathname.startsWith('/profile')}
                         />
                         <NavItem icon={Settings} label="Settings" to="/settings" />

@@ -1,13 +1,13 @@
 import { useState, useRef } from 'react'
 import { useNavigate } from '@tanstack/react-router'
-import { useAuthStore } from '../features/auth/stores/authStore'
-import { Layout } from '../components/Layout'
-import logoTransparent from '../assets/logo_transparent_v1_small.png'
-import { Feed } from '../features/feed/components/Feed'
-import { ComposerModal } from '../features/composer/components/ComposerModal'
+import { useAuthStore } from '@/features/auth/stores/authStore'
+import { Layout } from '@/components/Layout'
+import logoTransparent from '@/assets/logo_transparent_v1_small.png'
+import { Feed } from '@/features/feed/components/Feed'
+import { ComposerModal } from '@/features/composer/components/ComposerModal'
 import { toast } from 'sonner'
 import { RecaptchaVerifier } from 'firebase/auth'
-import { auth } from '../lib/firebase'
+import { auth } from '@/lib/firebase'
 
 function Home() {
     const navigate = useNavigate()

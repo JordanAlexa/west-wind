@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { Outlet } from '@tanstack/react-router'
 import { Toaster } from 'sonner'
-import { useAuthStore } from './features/auth/stores/authStore'
+import { useAuthStore, type AppUser } from './features/auth/stores/authStore'
 import { AuthHandler } from './features/auth/components/AuthHandler'
 
 import './App.css'
@@ -26,21 +26,29 @@ function App() {
           await loginWithIdToken(idToken);
           console.log("Session cookie established");
 
-          // 3. Sync User (Create/Update)
+          // 3. Sync User (Check Backend)
           try {
             await useAuthStore.getState().syncUser(user);
             console.log("User synced with backend");
-
-            // 4. Redirect to home if on login/register pages
+            
+            const currentUser = useAuthStore.getState().user;
             const path = window.location.pathname;
-            if (path === '/register' || path === '/login') {
-              window.location.href = '/';
+
+            if (currentUser?.incompleteProfile) {
+                if (path !== '/onboarding') {
+                    window.location.href = '/onboarding';
+                }
+            } else {
+                // Full profile
+                if (path === '/register' || path === '/login' || path === '/onboarding') {
+                    window.location.href = '/';
+                }
             }
 
           } catch (fetchError) {
             console.error("Failed to sync user:", fetchError);
             // If sync fails, we might still want to set the user as GUEST or handle error
-            setUser({ ...user, role: 'USER' } as any);
+            setUser({ ...user, role: 'USER' } as AppUser);
           }
         } catch (error) {
           console.error("Failed to init auth:", error);

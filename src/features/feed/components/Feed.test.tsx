@@ -14,7 +14,7 @@ vi.mock('@tanstack/react-query', async () => {
 
 // Mock @tanstack/react-router
 vi.mock('@tanstack/react-router', () => ({
-    Link: ({ children, ...props }: any) => <a {...props}>{children}</a>,
+    Link: ({ children, ...props }: React.ComponentProps<'a'>) => <a {...props}>{children}</a>,
     useNavigate: () => vi.fn(),
     useRouter: () => ({ state: { location: { pathname: '/' } } }),
     useParams: () => ({}),
@@ -25,7 +25,7 @@ class MockIntersectionObserver {
     unobserve = vi.fn();
     disconnect = vi.fn();
 }
-window.IntersectionObserver = MockIntersectionObserver as any;
+window.IntersectionObserver = MockIntersectionObserver as unknown as typeof IntersectionObserver;
 
 // Create a wrapper for QueryClientProvider (still needed for context, though we mock the hook)
 const createWrapper = () => {
@@ -49,19 +49,35 @@ describe('Feed', () => {
     });
 
     it('renders loading state initially', () => {
-        (ReactQuery.useInfiniteQuery as any).mockReturnValue({
+        vi.mocked(ReactQuery.useInfiniteQuery).mockReturnValue({
             status: 'pending',
             data: undefined,
             fetchNextPage: vi.fn(),
             hasNextPage: false,
             isFetchingNextPage: false,
-        });
+            // Add other required properties with defaults or mocks
+            error: null,
+            isPending: true,
+            isLoading: true,
+            isError: false,
+            isSuccess: false,
+            fetchPreviousPage: vi.fn(),
+            hasPreviousPage: false,
+            isFetchingPreviousPage: false,
+            isFetching: false,
+            isLoadingError: false,
+            isRefetching: false,
+            isRefetchError: false,
+            isStale: false,
+            refetch: vi.fn(),
+            promise: Promise.resolve({} as unknown),
+        } as unknown as ReactQuery.UseInfiniteQueryResult);
         render(<Feed />, { wrapper: createWrapper() });
         expect(document.querySelector('.animate-spin')).toBeInTheDocument();
     });
 
     it('renders posts after loading', async () => {
-        (ReactQuery.useInfiniteQuery as any).mockReturnValue({
+        vi.mocked(ReactQuery.useInfiniteQuery).mockReturnValue({
             status: 'success',
             data: {
                 pages: [{
@@ -90,7 +106,23 @@ describe('Feed', () => {
             fetchNextPage: vi.fn(),
             hasNextPage: false,
             isFetchingNextPage: false,
-        });
+            // Add other required properties
+            error: null,
+            isPending: false,
+            isLoading: false,
+            isError: false,
+            isSuccess: true,
+            fetchPreviousPage: vi.fn(),
+            hasPreviousPage: false,
+            isFetchingPreviousPage: false,
+            isFetching: false,
+            isLoadingError: false,
+            isRefetching: false,
+            isRefetchError: false,
+            isStale: false,
+            refetch: vi.fn(),
+            promise: Promise.resolve({} as unknown),
+        } as unknown as ReactQuery.UseInfiniteQueryResult);
         render(<Feed />, { wrapper: createWrapper() });
 
         expect(screen.getByText(/Alice Johnson/i)).toBeInTheDocument();

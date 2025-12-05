@@ -14,13 +14,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 
-if (import.meta.env.DEV) {
-    // Connect to Firebase Auth Emulator
-    // Note: This disables the production provider, so Google Sign-In flow will change
-    import('firebase/auth').then(({ connectAuthEmulator }) => {
-        connectAuthEmulator(auth, "http://localhost:9099");
-        console.log("Connected to Firebase Auth Emulator at http://localhost:9099");
-    });
-}
+
 
 export const googleProvider = new GoogleAuthProvider();

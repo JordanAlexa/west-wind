@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useParams } from '@tanstack/react-router';
-import { ProfileHeader } from '../features/profile/components/ProfileHeader';
-import { ProfileTabs } from '../features/profile/components/ProfileTabs';
-import { Feed } from '../features/feed/components/Feed';
-import { Layout } from '../components/Layout';
-import { ComposerModal } from '../features/composer/components/ComposerModal';
+import { ProfileHeader } from '@/features/profile/components/ProfileHeader';
+import { ProfileTabs } from '@/features/profile/components/ProfileTabs';
+import { Feed } from '@/features/feed/components/Feed';
+import { Layout } from '@/components/Layout';
+import { ComposerModal } from '@/features/composer/components/ComposerModal';
 
 import { useQuery } from '@tanstack/react-query';
-import { getUser } from '../features/profile/api/users';
+import { getUser } from '@/features/profile/api/users';
 import { Loader2 } from 'lucide-react';
 
 export const Profile = () => {

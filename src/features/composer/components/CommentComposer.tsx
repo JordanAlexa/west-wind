@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useAuthStore } from '../../auth/stores/authStore';
 import { useCreatePost } from '../../feed/hooks/useCreatePost';
 import { Image, Film, Smile, X } from 'lucide-react';
-import { EmojiPicker } from './EmojiPicker';
+import { EmojiPicker, type EmojiData } from './EmojiPicker';
 import { GifSearch } from './GifSearch';
 import { LanguageSelector } from './LanguageSelector';
 import { CharacterProgress } from './CharacterProgress';
@@ -82,7 +82,7 @@ export const CommentComposer = ({ parentId, onSuccess }: CommentComposerProps) =
         );
     };
 
-    const handleEmojiSelect = (emoji: any) => {
+    const handleEmojiSelect = (emoji: EmojiData) => {
         const cursorPosition = textareaRef.current?.selectionStart || text.length;
         const newText = text.slice(0, cursorPosition) + emoji.native + text.slice(cursorPosition);
         setText(newText);

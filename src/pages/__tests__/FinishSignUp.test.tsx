@@ -1,5 +1,5 @@
-import { render, screen, waitFor } from '@testing-library/react';
-import { FinishSignUp } from '../FinishSignUp';
+import { render, waitFor } from '@testing-library/react';
+import { FinishSignUp } from '../../features/auth/pages/FinishSignUp';
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 
 // Hoist mocks
@@ -142,8 +142,8 @@ describe('FinishSignUp Component', () => {
         window.localStorage.setItem('emailForSignIn', 'test@example.com');
         
         // Mock error
-        const error: any = new Error('Invalid code');
-        error.code = 'auth/invalid-action-code';
+        const error = new Error('Invalid code');
+        (error as unknown as { code: string }).code = 'auth/invalid-action-code';
         mocks.signInWithEmailLink.mockRejectedValueOnce(error);
 
         render(<FinishSignUp />);
@@ -157,8 +157,8 @@ describe('FinishSignUp Component', () => {
         window.localStorage.setItem('emailForSignIn', 'test@example.com');
         
         // Mock error
-        const error: any = new Error('Email taken');
-        error.code = 'auth/email-already-in-use';
+        const error = new Error('Email taken');
+        (error as unknown as { code: string }).code = 'auth/email-already-in-use';
         mocks.signInWithEmailLink.mockRejectedValueOnce(error);
 
         render(<FinishSignUp />);
@@ -172,7 +172,7 @@ describe('FinishSignUp Component', () => {
         window.localStorage.setItem('emailForSignIn', 'test@example.com');
         
         // Mock error
-        const error: any = new Error('QUOTA_EXCEEDED : Exceeded daily quota');
+        const error = new Error('QUOTA_EXCEEDED : Exceeded daily quota');
         mocks.signInWithEmailLink.mockRejectedValueOnce(error);
 
         render(<FinishSignUp />);

@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Layout } from '../components/Layout';
-import { useNotifications, useMarkNotificationsRead } from '../features/notifications/hooks/useNotifications';
-import { NotificationItem } from '../features/notifications/components/NotificationItem';
+import { Layout } from '@/components/Layout';
+import { useNotifications, useMarkNotificationsRead } from '@/features/notifications/hooks/useNotifications';
+import { NotificationItem } from '@/features/notifications/components/NotificationItem';
 import { Loader2 } from 'lucide-react';
-import { ComposerModal } from '../features/composer/components/ComposerModal';
+import { ComposerModal } from '@/features/composer/components/ComposerModal';
 
 export const Notifications = () => {
     const [activeTab, setActiveTab] = useState<'all' | 'mentions'>('all');

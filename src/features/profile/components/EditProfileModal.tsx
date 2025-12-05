@@ -7,12 +7,19 @@ import { useFormik } from 'formik';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { ProfileSchema } from '../../../lib/schemas';
 import { z } from 'zod';
+import { type AppUser } from '../../auth/stores/authStore';
 
 interface EditProfileModalProps {
     isOpen: boolean;
     onClose: () => void;
-    currentUser: any;
-    currentProfile: any;
+    currentUser: AppUser;
+    currentProfile: {
+        username: string;
+        display_name: string;
+        bio: string;
+        avatar_url?: string;
+        banner_url?: string;
+    };
 }
 
 export const EditProfileModal = ({ isOpen, onClose, currentUser, currentProfile }: EditProfileModalProps) => {
@@ -42,9 +49,11 @@ export const EditProfileModal = ({ isOpen, onClose, currentUser, currentProfile 
                 if (bannerFile) {
                     bannerUrl = await uploadImage(bannerFile);
                 }
-            } catch (err: any) {
+            } catch (err: unknown) {
                 console.error('Image upload failed:', err);
-                const errorMessage = err.response?.data?.details || err.response?.data?.error || err.message || 'Failed to upload image.';
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                const errorObj = err as any; // Axios error structure is complex to type fully here without importing AxiosError
+                const errorMessage = errorObj.response?.data?.details || errorObj.response?.data?.error || errorObj.message || 'Failed to upload image.';
                 throw new Error(errorMessage);
             }
 

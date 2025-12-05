@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient, type InfiniteData } from '@tanstack/react-query';
 import { toggleLike, type Post } from '../api/posts';
 import { feedApi } from '../api/feed';
 
@@ -30,11 +30,11 @@ export const usePostInteraction = (post: Post) => {
             };
 
             // Optimistically update feed
-            queryClient.setQueryData(['posts'], (old: any) => {
+            queryClient.setQueryData<InfiniteData<{ posts: Post[] }>>(['posts'], (old) => {
                 if (!old) return old;
                 return {
                     ...old,
-                    pages: old.pages.map((page: any) => ({
+                    pages: old.pages.map((page) => ({
                         ...page,
                         posts: page.posts.map(updatePost),
                     })),
@@ -43,7 +43,8 @@ export const usePostInteraction = (post: Post) => {
 
             // Optimistically update thread view if active
             if (previousThread) {
-                queryClient.setQueryData(['post-thread', post.id], (old: any) => {
+            if (previousThread) {
+                queryClient.setQueryData<{ post: Post; replies: Post[] }>(['post-thread', post.id], (old) => {
                     if (!old) return old;
                     return {
                         ...old,
@@ -51,6 +52,7 @@ export const usePostInteraction = (post: Post) => {
                         replies: old.replies.map(updatePost)
                     };
                 });
+            }
             }
 
             return { previousPosts, previousThread };
@@ -78,13 +80,13 @@ export const usePostInteraction = (post: Post) => {
 
             const previousPosts = queryClient.getQueryData(['posts']);
 
-            queryClient.setQueryData(['posts'], (old: any) => {
+            queryClient.setQueryData<InfiniteData<{ posts: Post[] }>>(['posts'], (old) => {
                 if (!old) return old;
                 return {
                     ...old,
-                    pages: old.pages.map((page: any) => ({
+                    pages: old.pages.map((page) => ({
                         ...page,
-                        posts: page.posts.map((p: Post) => {
+                        posts: page.posts.map((p) => {
                             if (p.id === post.id) {
                                 return { ...p, reposts: p.reposts + 1 };
                             }

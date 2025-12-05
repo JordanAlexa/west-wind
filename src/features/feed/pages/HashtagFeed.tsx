@@ -2,10 +2,10 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { useParams } from '@tanstack/react-router';
 import { useState, useRef, useEffect } from 'react';
 import { ArrowLeft } from 'lucide-react';
-import { fetchPosts } from '../features/feed/api/posts';
-import { Post } from '../features/feed/components/Post';
-import { Layout } from '../components/Layout';
-import { ComposerModal } from '../features/composer/components/ComposerModal';
+import { fetchPosts } from '@/features/feed/api/posts';
+import { Post } from '@/features/feed/components/Post';
+import { Layout } from '@/components/Layout';
+import { ComposerModal } from '@/features/composer/components/ComposerModal';
 
 export const HashtagFeed = () => {
     const { tag } = useParams({ from: '/hashtag/$tag' });

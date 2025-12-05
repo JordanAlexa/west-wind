@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { useAuthStore } from '../../auth/stores/authStore';
 import { EditProfileModal } from './EditProfileModal';
-import { type User } from '../../profile/api/users';
+import { type User } from '../api/users';
 import { useFollow } from '../hooks/useFollow';
+import { useSocket } from '@/context/SocketContext';
+import { Mail } from 'lucide-react';
 
 interface ProfileHeaderProps {
     user: User;
@@ -10,6 +12,7 @@ interface ProfileHeaderProps {
 
 export const ProfileHeader = ({ user }: ProfileHeaderProps) => {
     const { user: currentUser } = useAuthStore();
+    const { openChat } = useSocket();
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
     // Check if the current logged-in user is viewing their own profile
@@ -56,7 +59,16 @@ export const ProfileHeader = ({ user }: ProfileHeaderProps) => {
                             Edit Profile
                         </button>
                     ) : (
-                        <FollowButton user={user} />
+                        <div className="flex gap-2 mt-12 sm:mt-0">
+                            <button
+                                onClick={() => openChat({ uid: user.firebase_uid, displayName: user.name })}
+                                className="p-2 rounded-full border border-border text-text hover:bg-surface-hover transition-colors"
+                                title="Message"
+                            >
+                                <Mail size={20} />
+                            </button>
+                            <FollowButton user={user} />
+                        </div>
                     )}
                 </div>
 

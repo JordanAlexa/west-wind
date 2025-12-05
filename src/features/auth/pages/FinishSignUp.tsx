@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from '@tanstack/react-router';
 import { toast } from 'sonner';
 import { Loader2 } from 'lucide-react';
-import { useAuthStore } from '../features/auth/stores/authStore';
-import { auth } from '../lib/firebase';
+import { useAuthStore } from '@/features/auth/stores/authStore';
+import { auth } from '@/lib/firebase';
 import { updateProfile } from 'firebase/auth';
 
 export const FinishSignUp = () => {
@@ -69,7 +69,7 @@ export const FinishSignUp = () => {
                             // But we are in a race.
                             // Let's manually ensure we have a session cookie.
                             const idToken = await auth.currentUser.getIdToken();
-                            await import('../features/auth/api/login').then(m => m.loginWithIdToken(idToken));
+                            await import('@/features/auth/api/login').then(m => m.loginWithIdToken(idToken));
 
                             const uploadRes = await import('@/lib/api-client').then(m => m.api.post<{ url: string }>('/upload', formData, {
                                 headers: { 'Content-Type': 'multipart/form-data' }

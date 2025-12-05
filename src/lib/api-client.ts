@@ -11,7 +11,7 @@ function authRequestInterceptor(config: InternalAxiosRequestConfig) {
 }
 
 export const api = Axios.create({
-    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000/api', // Default to localhost/api if not set
+    baseURL: import.meta.env.VITE_API_URL || '/api', // Default to relative path (uses Vite proxy)
 });
 
 api.interceptors.request.use(authRequestInterceptor);

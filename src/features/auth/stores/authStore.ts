@@ -16,10 +16,11 @@ import {
 import { auth, googleProvider } from '../../../lib/firebase';
 import { api } from '@/lib/api-client';
 
-interface AppUser extends User {
+export interface AppUser extends User {
     role?: 'SUPER.ADMIN' | 'ADMIN' | 'USER' | 'GUEST';
     username?: string;
     avatar_url?: string | null;
+    incompleteProfile?: boolean;
 }
 
 interface AuthState {
@@ -45,12 +46,31 @@ export const useAuthStore = create<AuthState>((set) => ({
         set({ loading: true, error: null });
         try {
             console.log("Starting Google Sign In...");
-            await signInWithPopup(auth, googleProvider);
-            // We do NOT sync here. App.tsx will detect the auth state change,
-            // establish the session cookie, and THEN call syncUser.
-        } catch (error: any) {
+            const result = await signInWithPopup(auth, googleProvider);
+            console.log("Google Sign In Popup finished. User:", result.user?.email);
+            
+            // If the user was already logged in, onAuthStateChanged might not fire.
+            // We need to ensure we have a session cookie and the user is synced.
+            if (result.user) {
+                console.log("Getting ID Token...");
+                const idToken = await result.user.getIdToken();
+                console.log("Got ID Token. Importing login API...");
+                // Dynamically import to avoid circular dependency if any
+                const { loginWithIdToken } = await import('../../../features/auth/api/login');
+                console.log("Calling loginWithIdToken...");
+                await loginWithIdToken(idToken);
+                console.log("loginWithIdToken finished. Syncing user...");
+                
+                // Now sync user
+                await useAuthStore.getState().syncUser(result.user);
+                console.log("User synced.");
+            }
+            
+            set({ loading: false });
+        } catch (error: unknown) {
             console.error("Sign In Error:", error);
-            set({ error: error.message, loading: false });
+            const message = error instanceof Error ? error.message : "An unknown error occurred";
+            set({ error: message, loading: false });
         }
     },
     sendEmailLink: async (email: string) => {
@@ -63,9 +83,10 @@ export const useAuthStore = create<AuthState>((set) => ({
             await sendSignInLinkToEmail(auth, email, actionCodeSettings);
             window.localStorage.setItem('emailForSignIn', email);
             set({ loading: false });
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error("Send Email Link Error:", error);
-            set({ error: error.message, loading: false });
+            const message = error instanceof Error ? error.message : "An unknown error occurred";
+            set({ error: message, loading: false });
             throw error;
         }
     },
@@ -77,9 +98,10 @@ export const useAuthStore = create<AuthState>((set) => ({
                 window.localStorage.removeItem('emailForSignIn');
                 // App.tsx will handle the sync
             }
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error("Sign In With Email Link Error:", error);
-            set({ error: error.message, loading: false });
+            const message = error instanceof Error ? error.message : "An unknown error occurred";
+            set({ error: message, loading: false });
             throw error;
         }
     },
@@ -89,9 +111,10 @@ export const useAuthStore = create<AuthState>((set) => ({
             const confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, appVerifier);
             set({ loading: false });
             return confirmationResult;
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error("Sign In With Phone Number Error:", error);
-            set({ error: error.message, loading: false });
+            const message = error instanceof Error ? error.message : "An unknown error occurred";
+            set({ error: message, loading: false });
             throw error;
         }
     },
@@ -131,9 +154,10 @@ export const useAuthStore = create<AuthState>((set) => ({
             window.localStorage.setItem('emailForSignIn', email);
 
             // Note: User is NOT created yet. They must click the link.
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error("Registration Error:", error);
-            set({ error: error.message, loading: false });
+            const message = error instanceof Error ? error.message : "An unknown error occurred";
+            set({ error: message, loading: false });
             throw error;
         }
     },
@@ -143,8 +167,9 @@ export const useAuthStore = create<AuthState>((set) => ({
             await firebaseSignOut(auth);
             localStorage.removeItem('west-wind-user');
             set({ user: null, loading: false });
-        } catch (error: any) {
-            set({ error: error.message, loading: false });
+        } catch (error: unknown) {
+            const message = error instanceof Error ? error.message : "An unknown error occurred";
+            set({ error: message, loading: false });
         }
     },
     setUser: (user) => set({ user, loading: false }),
@@ -152,17 +177,51 @@ export const useAuthStore = create<AuthState>((set) => ({
     syncUser: async (user: User) => {
         // This action is called by App.tsx AFTER session cookie is established
         try {
-            const appUser = await syncUserWithBackend(user);
-            set({ user: appUser, loading: false });
-        } catch (error: any) {
+            const backendUser = await checkBackendUser(user.uid);
+            
+            if (backendUser) {
+                // User exists, set full profile
+                const appUser: AppUser = {
+                    ...user,
+                    role: backendUser.role as AppUser['role'],
+                    username: backendUser.username,
+                    displayName: backendUser.display_name,
+                    avatar_url: backendUser.avatar_url
+                };
+                set({ user: appUser, loading: false });
+            } else {
+                // User does not exist, set incomplete profile
+                const appUser: AppUser = {
+                    ...user,
+                    role: 'GUEST',
+                    incompleteProfile: true
+                };
+                set({ user: appUser, loading: false });
+            }
+        } catch (error: unknown) {
             console.error("Sync User Error:", error);
-            set({ error: error.message, loading: false });
+            const message = error instanceof Error ? error.message : "An unknown error occurred";
+            set({ error: message, loading: false });
         }
     }
 }));
 
 
-// Helper to sync user with backend (Pure function, no state side effects)
+// Helper to check if user exists in backend
+export const checkBackendUser = async (_firebase_uid: string) => {
+    try {
+        const response = await api.get<any>('/users/me');
+        // @ts-expect-error - api interceptor
+        return response as { role: string; avatar_url?: string; username?: string; display_name?: string };
+    } catch (error: any) {
+        if (error.response?.status === 404) {
+            return null;
+        }
+        throw error;
+    }
+};
+
+// Helper to create/sync user with backend (Used by Onboarding)
 export const syncUserWithBackend = async (user: User, additionalData?: { username?: string; display_name?: string; avatar_url?: string }) => {
     let role = 'USER'; // Default
     const username = additionalData?.username || user.email?.split('@')[0] || 'user' + user.uid.slice(0, 5);
@@ -178,17 +237,20 @@ export const syncUserWithBackend = async (user: User, additionalData?: { usernam
             email_verified: user.emailVerified
         };
 
-        const data = await api.post<{ role: string }>('/users', payload) as unknown as { role: string };
+        const response = await api.post<{ role: string; avatar_url?: string; username?: string; display_name?: string }>('/users', payload);
+        // @ts-expect-error - api interceptor returns data directly
+        const data = response as { role: string; avatar_url?: string; username?: string; display_name?: string };
 
         if (data.role) {
             role = data.role;
         }
 
-        const appUser = {
+        const appUser: AppUser = {
             ...user,
-            role: role as any,
-            username: username,
-            avatar_url: avatar_url
+            role: role as AppUser['role'],
+            username: data.username || username,
+            displayName: data.display_name || additionalData?.display_name || user.displayName,
+            avatar_url: data.avatar_url || avatar_url
         };
 
         // Save to local storage for API usage

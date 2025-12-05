@@ -8,7 +8,7 @@ import { ComposerModal } from '../../composer/components/ComposerModal';
 import { SearchInput } from '../components/SearchInput';
 
 export const Search = () => {
-    // @ts-ignore - simple search params handling
+    // simple search params handling
     const searchParams = new URLSearchParams(window.location.search);
     const query = searchParams.get('q') || '';
 

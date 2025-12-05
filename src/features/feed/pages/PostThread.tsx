@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useParams } from '@tanstack/react-router';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { fetchPostThread, type Post as PostType } from '../features/feed/api/posts';
-import { Layout } from '../components/Layout';
+import { fetchPostThread, type Post as PostType } from '@/features/feed/api/posts';
+import { Layout } from '@/components/Layout';
 import { Loader2, ArrowLeft } from 'lucide-react';
-import { ComposerModal } from '../features/composer/components/ComposerModal';
-import { Post } from '../features/feed/components/Post';
-import { CommentComposer } from '../features/composer/components/CommentComposer';
+import { ComposerModal } from '@/features/composer/components/ComposerModal';
+import { Post } from '@/features/feed/components/Post';
+import { CommentComposer } from '@/features/composer/components/CommentComposer';
 
 export const PostThread = () => {
     const { rkey } = useParams({ from: '/profile/$handle/post/$rkey' });

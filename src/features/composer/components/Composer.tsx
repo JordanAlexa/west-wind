@@ -6,7 +6,7 @@ import { GifSearch } from './GifSearch';
 import { InteractionSettings, type InteractionSetting } from './InteractionSettings';
 import { LanguageSelector } from './LanguageSelector';
 import { CharacterProgress } from './CharacterProgress';
-import { EmojiPicker } from './EmojiPicker';
+import { EmojiPicker, type EmojiData } from './EmojiPicker';
 import { DiscardDialog } from './DiscardDialog';
 
 export interface ComposerHandle {
@@ -109,7 +109,7 @@ export const Composer = forwardRef<ComposerHandle, ComposerProps>(({ onSuccess, 
         );
     };
 
-    const handleEmojiSelect = (emoji: any) => {
+    const handleEmojiSelect = (emoji: EmojiData) => {
         const cursorPosition = textareaRef.current?.selectionStart || text.length;
         const newText = text.slice(0, cursorPosition) + emoji.native + text.slice(cursorPosition);
         setText(newText);

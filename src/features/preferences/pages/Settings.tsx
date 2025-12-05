@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from '@tanstack/react-router';
-import { Layout } from '../components/Layout';
-import { usePreferencesStore, type Theme, type FontSize } from '../features/preferences/stores/preferencesStore';
-import { useAuthStore } from '../features/auth/stores/authStore';
+import { Layout } from '@/components/Layout';
+import { usePreferencesStore, type Theme, type FontSize } from '@/features/preferences/stores/preferencesStore';
+import { useAuthStore } from '@/features/auth/stores/authStore';
 import { toast } from 'sonner';
-import { updateProfile } from '../features/profile/api/users';
+import { updateProfile } from '@/features/profile/api/users';
 
 export function Settings() {
     const [activeTab, setActiveTab] = useState<'account' | 'appearance'>('appearance');
@@ -226,6 +226,16 @@ function AppearanceSettings() {
                     Save Changes
                 </button>
             </div>
+
+            <section className="pt-8 border-t border-border">
+                <h2 className="text-lg font-bold mb-4 text-red-500">Debug Zone</h2>
+                <button
+                    onClick={() => fetch('http://localhost:3000/api/debug-sentry')}
+                    className="w-full bg-red-500/10 text-red-500 border border-red-500 py-3 rounded-full font-bold hover:bg-red-500/20 transition-colors"
+                >
+                    Trigger Backend Error (Sentry)
+                </button>
+            </section>
         </div>
     );
 }
